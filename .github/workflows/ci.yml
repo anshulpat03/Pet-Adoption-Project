@@ -1,5 +1,6 @@
 name: CI Pipeline
 
+# This is a trigger for any push to the repo
 on:
   push:
     branches:
@@ -7,27 +8,45 @@ on:
       - develop
 
 jobs:
-  build:
+  # Each job runs in parallel
+  name_your_job_whatever_you_want:
+
+    # runs-on indicates which GitHub "Runners" will run this CICD pipeline
+    # For all CSE-2102 repos, just use the following line as is
     runs-on: self-hosted
+    # This next block allows you to run this ENTIRE job on different python versions
+    strategy:
+      matrix:
+        #python-version: ["3.7", "3.8", "3.9", "3.10", "3.11"]
+        python-version: ["3.8"]
 
+    # Steps are run in sequence in this job. If one step fails, the entire job fails.
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Set up Python
-        uses: actions/setup-python@v2
+      # Use this next line to pull your repo into the Docker container running the job
+      - uses: actions/checkout@v3
+      # This block sets up the python version
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
         with:
-          python-version: '3.x'
-
-      - name: Install dependencies
+          python-version: ${{ matrix.python-version }}
+      # Pylint is a static code analysis tool. Use this block as is to install pylint
+      #  in the Docker container running the job
+      - name: Install pylint
         run: |
-          pip install -r ./backend/requirements.txt
-
-      - name: Lint with pylint
+          python -m pip install --upgrade pip
+          pip install pylint
+      # Run pylint on your pulled code in the Docker container running the job
+      - name: Analysing the code with pylint
         run: |
-          pylint --errors-only $(git ls-files '*.py')
-        continue-on-error: false
-
-      - name: Run tests with pytest
+          pylint $(git ls-files './backend/*.py')
+      # Pytest is for unit testing your python code. Use this block as is to 
+      # install pytest in the Docker container running the job
+      - name: Install pytest
         run: |
-          pytest --maxfail=1 --disable-warnings
+          python -m pip install --upgrade pip
+          pip install pytest
+          if [ -f ./backend/requirements.txt ]; then pip install -r ./backend/requirements.txt; fi
+      # Run pytest on your pulled codebase
+      - name: Test with pytest
+        run: |
+          pytest
