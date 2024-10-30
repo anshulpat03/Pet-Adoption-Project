@@ -26,7 +26,6 @@ users = [
     }
 ]
 
-
 def get_user_by_id(user_id):
     """Fetches a user by their ID."""
     for user in users:
