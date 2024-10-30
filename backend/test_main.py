@@ -4,6 +4,7 @@ import requests
 BASE_URL = "http://localhost:5000"
 
 def test_list_pets():
+    """This is a test for pet list"""
     response = requests.get(f"{BASE_URL}/pets")
     assert response.status_code == 200
     assert isinstance(response.json(), list)
