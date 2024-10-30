@@ -2,7 +2,7 @@
 Test suite for the Pet Adoption Organization API.
 Contains tests for endpoints related to pets, users, and managers.
 """
-
+from flask import request
 import requests
 
 BASE_URL = "http://localhost:5000"
