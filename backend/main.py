@@ -1,3 +1,7 @@
+"""
+This module provides a Flask web server with routes for managing pets and users
+"""
+
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from pets import get_all_pets, get_pet_by_id, create_pet, update_pet, delete_pet
@@ -18,8 +22,7 @@ def get_pet(pet_id):
     pet = get_pet_by_id(pet_id)
     if pet:
         return jsonify(pet), 200
-    else:
-        return jsonify({'error': 'Pet not found'}), 404
+    return jsonify({'error': 'Pet not found'}), 404
 
 @app.route('/pets', methods=['POST'])
 def add_pet():
@@ -35,8 +38,7 @@ def edit_pet(pet_id):
     updated_pet = update_pet(pet_id, pet_data)
     if updated_pet:
         return jsonify(updated_pet), 200
-    else:
-        return jsonify({'error': 'Pet not found'}), 404
+    return jsonify({'error': 'Pet not found'}), 404
 
 @app.route('/pets/<int:pet_id>', methods=['DELETE'])
 def remove_pet(pet_id):
@@ -44,8 +46,7 @@ def remove_pet(pet_id):
     success = delete_pet(pet_id)
     if success:
         return jsonify({'message': 'Pet deleted successfully'}), 200
-    else:
-        return jsonify({'error': 'Pet not found'}), 404
+    return jsonify({'error': 'Pet not found'}), 404
 
 # User Routes
 @app.route('/users/<int:user_id>', methods=['GET'])
@@ -54,8 +55,7 @@ def get_user(user_id):
     user = get_user_by_id(user_id)
     if user:
         return jsonify(user), 200
-    else:
-        return jsonify({'error': 'User not found'}), 404
+    return jsonify({'error': 'User not found'}), 404
 
 @app.route('/register', methods=['POST'])
 def register():
