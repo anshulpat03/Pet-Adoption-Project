@@ -38,10 +38,10 @@ def update_pet(pet_id, pet_data):
     return None
 
 def delete_pet(pet_id):
-    """Removes a pet by ID."""
-    global pets
-    pet = get_pet_by_id(pet_id)
+    """Deletes a pet by ID without using the global keyword."""
+    pet = next((p for p in pets if p["id"] == pet_id), None)
     if pet:
-        pets = [p for p in pets if p["id"] != pet_id]
-        return True
-    return False
+        # Reassign pets to a new list excluding the pet with the given ID
+        pets[:] = [p for p in pets if p["id"] != pet_id]
+        return True  # Indicates successful deletion
+    return False  # Indicates pet was not found

@@ -26,6 +26,13 @@ def manager_get_user_adoption_progress(user_id):
         return {"error": f"User with ID {user_id} not found or no adoption progress available"}
     return progress
 
+def manager_get_user_info(user_id):
+    """Manager access to get user information by user ID."""
+    user = get_user_by_id(user_id)
+    if not user:
+        return {"error": f"User with ID {user_id} not found"}
+    return user
+
 # Example of how the manager might use this function
 
 # Manager retrieves the adoption progress for user with ID 3 (Charlie)

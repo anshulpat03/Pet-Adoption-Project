@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from pets import get_all_pets, get_pet_by_id, create_pet, update_pet, delete_pet
-from users import get_user_by_id, register_user
+from user import get_user_by_id, register_user
 
 app = Flask(__name__)
 CORS(app)
