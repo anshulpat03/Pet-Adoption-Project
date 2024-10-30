@@ -1,3 +1,4 @@
+"""This is manager.py file to access user and pet information."""
 # manager.py - Stubs for manager-specific API calls
 
 from pets import get_pet_by_id, create_pet, delete_pet
@@ -36,7 +37,7 @@ def manager_get_user_info(user_id):
 # Example of how the manager might use this function
 
 # Manager retrieves the adoption progress for user with ID 3 (Charlie)
-print(manager_get_user_adoption_progress(3))
+# print(manager_get_user_adoption_progress(3))
 
 # Expected Output:
 # [{'pet_id': 3, 'status': 'Denied'}]
