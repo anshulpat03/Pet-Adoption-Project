@@ -1,4 +1,8 @@
-import pytest
+"""
+Test suite for the Pet Adoption Organization API.
+Contains tests for endpoints related to pets, users, and managers.
+"""
+
 import requests
 
 BASE_URL = "http://localhost:5000"
@@ -168,10 +172,12 @@ def test_manager_get_user_info():
 
 def test_manager_get_nonexistent_user_adoption_progress():
     """
-    Test manager attempting to retrieve adoption progress for a non-existent user by ID.
+    Test manager attempting to retrieve adoption progress for 
+    a non-existent user by ID.
     Verifies:
         - The response status code is 404 (Not Found).
-        - The response contains an error message indicating the user or adoption progress was not found.
+        - The response contains an error message indicating the 
+        user or adoption progress was not found.
     """
     response = requests.get(f"{BASE_URL}/users/999/adoption-progress")
     assert response.status_code == 404
