@@ -1,3 +1,7 @@
+"""
+Manages user data and adoption progress for a pet adoption system
+"""
+
 # users.py
 users = [
     {
