@@ -1,3 +1,4 @@
+"""This is pets.py that has examples of pets and methods associted with a pet's bio info"""
 # pets.py
 pets = [
     {"id": 1, "name": "Buddy", "type": "Dog", "age": 3},
