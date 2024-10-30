@@ -181,4 +181,6 @@ def test_manager_get_nonexistent_user_adoption_progress():
     """
     response = requests.get(f"{BASE_URL}/users/999/adoption-progress")
     assert response.status_code == 404
-    assert response.json()["error"] == "User with ID 999 not found or no adoption progress available"
+    assert response.json()["error"] == (
+    "User with ID 999 not found or no adoption progress available"
+)
