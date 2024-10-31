@@ -9,7 +9,7 @@ from main import app  # Import your Flask app
 BASE_URL = "/"
 
 @pytest.fixture
-def test_client():
+def client():
     """Create a test client for the Flask app."""
     with app.test_client() as client:
         yield client
