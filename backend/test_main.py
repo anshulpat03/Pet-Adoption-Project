@@ -13,7 +13,7 @@ def test_client():
 
 def test_list_pets(test_client): # pylint: disable=W0621
     """Test listing all pets."""
-    response = test_client.get('/pets') 
+    response = test_client.get('/pets')
     assert response.status_code == 200
     assert isinstance(response.json, list)  # Check that the response is a list
 
