@@ -8,7 +8,7 @@ from main import app  # Import your Flask app
 @pytest.fixture
 def test_client():
     """Fixture to set up Flask test client."""
-    with app.test_client() as test_client:
+    with app.test_client() as test_client: # pylint: disable=W0621
         yield test_client
 
 def test_list_pets(client):
@@ -74,4 +74,3 @@ def test_manager_get_user_info(client):
     if response.status_code == 200:
         assert 'name' in response.json
         assert 'adoption_progress' in response.json
-        
