@@ -1,19 +1,27 @@
 """
 This module provides a Flask web server with routes for managing pets and users
 """
+from database import init_db
+init_db()
 
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from pets import get_all_pets, get_pet_by_id, create_pet, update_pet, delete_pet
 from user import get_user_by_id, register_user
-from database import init_db
 
-init_db()
+
+
 
 app = Flask(__name__)
 CORS(app)
 
+
+
 # Pets Routes
+@app.route('/')
+def home():
+    return "<p>Hello<p>"
+
 @app.route('/pets', methods=['GET'])
 def list_pets():
     """Get a list of all pets"""

@@ -6,25 +6,32 @@ import sqlite3
 connection = sqlite3.connect('pets.db')
 cursor = connection.cursor()
 
-cursor.execute("SELECT * FROM pets")
+def get_db_connection(name):
+    conn = sqlite3.connect(name)
+    conn.row_factory = sqlite3.Row  # Optional, allows dictionary-like access to rows
+    return conn
 
-pets2 = [
-    {"id": 1, "name": "Buddy", "type": "Dog", "age": 3},
-    {"id": 2, "name": "Mittens", "type": "Cat", "age": 5}
-]
+# Fetch pets from the database
+def fetch_pets_from_db():
+    conn = get_db_connection('pets.db')
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM pets")
+    pets = cursor.fetchall()
+    conn.close()
+    return pets
 
-# fetch the rows in pets.db 
-pets = cursor.fetchall()
+# Initialize pets
+pets = fetch_pets_from_db()
 
 def get_all_pets():
     """Returns a list of all pets."""
-    return pets
+    return [dict(pet) for pet in pets]
 
 def get_pet_by_id(pet_id):
     """Fetches a single pet by ID."""
     for pet in pets:
         if pet["id"] == pet_id:
-            return pet
+            return dict(pet)
     return None
 
 def create_pet(pet_data):
