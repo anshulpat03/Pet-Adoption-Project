@@ -1,9 +1,20 @@
 """This is pets.py that has examples of pets and methods associted with a pet's bio info"""
 # pets.py
-pets = [
+import sqlite3
+
+# Connect to the pets.db SQLite database
+connection = sqlite3.connect('pets.db')
+cursor = connection.cursor()
+
+cursor.execute("SELECT * FROM pets")
+
+pets2 = [
     {"id": 1, "name": "Buddy", "type": "Dog", "age": 3},
     {"id": 2, "name": "Mittens", "type": "Cat", "age": 5}
 ]
+
+# fetch the rows in pets.db 
+pets = cursor.fetchall()
 
 def get_all_pets():
     """Returns a list of all pets."""
