@@ -1,1 +1,2 @@
-database.py
+# ignore all files that end with .db
+*.db
