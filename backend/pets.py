@@ -40,22 +40,34 @@ def create_pet(pet_data):
     new_pet = {
         "id": new_id,
         "name": pet_data.get("name"),
-        "type": pet_data.get("type"),
-        "age": pet_data.get("age")
+        "breed": pet_data.get("breed"),
+        "age": pet_data.get("age"),
+        "description": pet_data.get("description")
     }
     pets.append(new_pet)
     return new_pet
 
-def update_pet(pet_id, pet_data):
-    """Updates an existing pet's information by ID."""
-    pet = get_pet_by_id(pet_id)
-    if pet:
-        pet["name"] = pet_data.get("name", pet["name"])
-        pet["type"] = pet_data.get("type", pet["type"])
-        pet["age"] = pet_data.get("age", pet["age"])
-        return pet
-    return None
-
+def update_pet(table, id, col, value):
+    try:
+        connection = sqlite3.connect("pets.db")
+        cursor = connection.cursor()
+        
+        # Use parameterized queries to avoid SQL injection
+        query = f"UPDATE {table} SET {col} = ? WHERE id = ?"
+        cursor.execute(query, (value, id))
+        
+        # Check if any row was updated
+        if cursor.rowcount == 0:
+            return False
+        
+        connection.commit()
+        return True
+    except sqlite3.Error as e:
+        print(f"Database error: {e}")
+        return False
+    finally:
+        connection.close()
+        
 def delete_pet(pet_id):
     """Deletes a pet by ID without using the global keyword."""
     pet = next((p for p in pets if p["id"] == pet_id), None)

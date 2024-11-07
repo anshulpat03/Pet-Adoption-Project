@@ -46,10 +46,19 @@ def add_pet():
 def edit_pet(pet_id):
     """Update pet details by pet ID"""
     pet_data = request.json
-    updated_pet = update_pet(pet_id, pet_data)
+    for col, value in pet_data.items():
+        update_result = update_pet("pets", pet_id, col, value)
+        
+        # If the update fails for any column, return an error
+        if not update_result:
+            return jsonify({'error': f'Failed to update {col}'}), 400
+
+    # If all updates are successful, retrieve the updated data to confirm
+    updated_pet = get_pet_by_id(pet_id)
     if updated_pet:
         return jsonify(updated_pet), 200
     return jsonify({'error': 'Pet not found'}), 404
+    
 
 @app.route('/pets/<int:pet_id>', methods=['DELETE'])
 def remove_pet(pet_id):
