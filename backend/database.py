@@ -41,7 +41,9 @@ def init_user_db():
                         id INTEGER PRIMARY KEY,
                         username TEXT NOT NULL,
                         email TEXT NOT NULL UNIQUE)''')
-    cursor.execute("INSERT INTO users (username, email) VALUES ('John Doe', 'johndoe@example.com')")
+    cursor.execute('''INSERT INTO users (username, email)
+                    VALUES(?,?)''', 
+                    ('John Doe', 'johndoe@example.com'))
     
     conn.commit()
     conn.close()
