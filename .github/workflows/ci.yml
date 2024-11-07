@@ -46,6 +46,27 @@ jobs:
           python -m pip install --upgrade pip
           pip install pytest
           if [ -f ./backend/requirements.txt ]; then pip install -r ./backend/requirements.txt; fi
+      # initialize database for pytest
+      - name: Initialize the database
+      run: |
+        python -c "
+        import sqlite3
+        conn = sqlite3.connect('pets.db')
+        cursor = conn.cursor()
+        cursor.execute('''CREATE TABLE IF NOT EXISTS pets (
+                        id INTEGER PRIMARY KEY,
+                        name TEXT NOT NULL,
+                        breed TEXT,
+                        age INTEGER,
+                        description TEXT)''')
+        count = cursor.fetchone()[0]
+        if count == 0:
+        cursor.execute('''INSERT INTO pets (name, breed, age, description)
+                          VALUES (?, ?, ?, ?)''',
+                       ('Buddy', 'Golden Retriever', 3, 'Friendly and active'))
+        conn.commit()
+        conn.close()
+        "
       # Run pytest on your pulled codebase
       - name: Test with pytest
         run: |
