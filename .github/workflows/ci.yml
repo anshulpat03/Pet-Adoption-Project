@@ -46,7 +46,7 @@ jobs:
       - name: Initialize the database
         run: |
           python -c "
-            import sqlite3
+          import sqlite3
             conn = sqlite3.connect('pets.db')
             cursor = conn.cursor()
             cursor.execute('''CREATE TABLE IF NOT EXISTS pets (
