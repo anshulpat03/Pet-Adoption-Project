@@ -62,7 +62,7 @@ def test_delete_pet(test_client): # pylint: disable=W0621
     new_pet = {"name": "Max", "breed": "Labrador", "age": 2, "description": "Friendly"}
     create_response = test_client.post('/pets', json=new_pet)
     pet_id = create_response.json['id']  # Get the ID of the newly created pet
-    
+
     # Now delete the pet
     response = test_client.delete(f'/pets/{pet_id}')
     assert response.status_code in [200, 404]
