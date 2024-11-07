@@ -31,15 +31,16 @@ users2 = [
     }
 ]
 def get_db_connection(name):
+    """Get connection to database"""
     conn = sqlite3.connect(name)
     conn.row_factory = sqlite3.Row  # Optional, allows dictionary-like access to rows
     return conn
 
-# Fetch pets from the database
 def fetch_users_from_db():
+    "Fetch users from the database"
     conn = get_db_connection('users.db')
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM users")
+    cursor.execute("SELECT * FROM users") # pylint : diable=w0621
     users = cursor.fetchall()
     conn.close()
     return users
