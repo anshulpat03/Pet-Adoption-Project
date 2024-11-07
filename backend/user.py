@@ -62,7 +62,7 @@ def get_user_by_id(user_id):
 
 def register_user(user_data):
     """Registers a new user."""
-    conn = get_db_connection('pets.db')
+    conn = get_db_connection('users.db')
     cursor = conn.cursor()
 
     # Insert new user into the database
