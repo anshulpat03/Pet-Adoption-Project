@@ -54,7 +54,7 @@ def init_user_db():
 
     conn.commit()
     conn.close()
-  
+
 def init_db():
     "starts initialization for both databases"
     init_pet_db()
