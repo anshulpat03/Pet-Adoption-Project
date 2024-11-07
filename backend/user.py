@@ -51,7 +51,7 @@ def get_user_by_id(user_id):
     """Fetches a user by their ID."""
     conn = get_db_connection('users.db')
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM pets WHERE id = ?", (user_id,))
+    cursor.execute("SELECT * FROM users WHERE id = ?", (user_id,))
     user = cursor.fetchone()
     conn.close()
     return dict(user) if user else None
