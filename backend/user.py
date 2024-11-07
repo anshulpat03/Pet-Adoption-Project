@@ -40,9 +40,9 @@ def fetch_users_from_db():
     conn = get_db_connection('users.db')
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM users")
-    users = cursor.fetchall()
-    conn.close()
-    return users
+    users = cursor.fetchall() # pylint: disable=W0621
+    conn.close() # pylint: disable=W0621
+    return users # pylint: disable=W0621
 
 # Initialize users
 users = fetch_users_from_db()

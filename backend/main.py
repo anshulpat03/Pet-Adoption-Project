@@ -49,6 +49,7 @@ swagger = Swagger(app, template=swagger_spec)
 # Pets Routes
 @app.route('/')
 def home():
+    """Landing page"""
     return "<p>Hello<p>"
 
 @app.route('/pets', methods=['GET'])
@@ -144,9 +145,6 @@ def edit_pet(pet_id):
         update_result = update_pet("pets", pet_id, col, value)
         if not update_result:
             return jsonify({'error': f'Failed to update {col}'}), 400
-
-    global pets
-    pets = fetch_pets_from_db()
 
     updated_pet = get_pet_by_id(pet_id)
     if updated_pet:
