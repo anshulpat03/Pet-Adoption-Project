@@ -46,24 +46,20 @@ jobs:
       - name: Initialize the database
         run: |
           python -c "
-import sqlite3
-conn = sqlite3.connect('pets.db')
-cursor = conn.cursor()
-cursor.execute('''CREATE TABLE IF NOT EXISTS pets (
-                    id INTEGER PRIMARY KEY,
-                    name TEXT NOT NULL,
-                    breed TEXT,
-                    age INTEGER,
-                    description TEXT)''')
-# Check if pets table is empty by counting rows
-cursor.execute('SELECT COUNT(*) FROM pets')
-count = cursor.fetchone()[0]
-if count == 0:
-    cursor.execute('''INSERT INTO pets (name, breed, age, description)
-                      VALUES (?, ?, ?, ?)''',
-                   ('Buddy', 'Golden Retriever', 3, 'Friendly and active'))
-conn.commit()
-conn.close() "        
+            import sqlite3
+            conn = sqlite3.connect('pets.db')
+            cursor = conn.cursor()
+            cursor.execute('''CREATE TABLE IF NOT EXISTS pets (
+                                id INTEGER PRIMARY KEY,
+                                name TEXT NOT NULL,
+                                breed TEXT,
+                                age INTEGER,
+                                description TEXT)''')
+            cursor.execute('''INSERT INTO pets (name, breed, age, description)
+                              VALUES (?, ?, ?, ?)''',
+                           ('Buddy', 'Golden Retriever', 3, 'Friendly and active'))
+            conn.commit()
+            conn.close() "        
       # Run pytest on your pulled codebase
       - name: Test with pytest
         run: |
