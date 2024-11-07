@@ -3,14 +3,12 @@
 This module provides a Flask web server with routes for managing pets and users
 """
 from database import init_db
-init_db()
-
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from flasgger import Swagger
 from pets import get_all_pets, get_pet_by_id, create_pet, update_pet, delete_pet, fetch_pets_from_db
 from user import get_user_by_id, register_user
-
+init_db()
 
 
 
@@ -150,8 +148,6 @@ def edit_pet(pet_id):
     if updated_pet:
         return jsonify(updated_pet), 200
     return jsonify({'error': 'Pet not found'}), 404
-
-    
 
 @app.route('/pets/<int:pet_id>', methods=['DELETE'])
 def remove_pet(pet_id):
