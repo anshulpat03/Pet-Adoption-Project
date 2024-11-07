@@ -67,7 +67,7 @@ def register_user(user_data):
 
     # Insert new user into the database
     cursor.execute(
-        "INSERT INTO users (user, email) VALUES (?, ?, ?, ?)",
+        "INSERT INTO users (user, email) VALUES (?, ?)",
         (user_data.get("name"), user_data.get("email"))
     )
 
