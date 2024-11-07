@@ -68,7 +68,7 @@ jobs:
                         email TEXT NOT NULL UNIQUE)''')
           cursor.execute('''INSERT INTO users (username, email)
                       VALUES(?,?)''',
-                      ('John Doe', 'johndoe@example.com')) 
+                      ('Abigail Koval', 'husky@example.com')) 
           conn.commit()
           conn.close() "        
       # Run pytest on your pulled codebase
