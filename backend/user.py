@@ -1,9 +1,10 @@
 """
 Manages user data and adoption progress for a pet adoption system
 """
+import sqlite3
 
 # users.py
-users = [
+users2 = [
     {
         "id": 1,
         "name": "Alice",
@@ -29,23 +30,58 @@ users = [
         ]
     }
 ]
+def get_db_connection(name):
+    conn = sqlite3.connect(name)
+    conn.row_factory = sqlite3.Row  # Optional, allows dictionary-like access to rows
+    return conn
+
+# Fetch pets from the database
+def fetch_users_from_db():
+    conn = get_db_connection('users.db')
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM users")
+    users = cursor.fetchall()
+    conn.close()
+    return users
+
+# Initialize users
+users = fetch_users_from_db()
 
 def get_user_by_id(user_id):
     """Fetches a user by their ID."""
-    for user in users:
-        if user["id"] == user_id:
-            return user
-    return None
+    conn = get_db_connection('users.db')
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM pets WHERE id = ?", (user_id,))
+    user = cursor.fetchone()
+    conn.close()
+    return dict(user) if user else None
+    #for user in users:
+        #if user["id"] == user_id:
+            #return user
+    #return None
 
 def register_user(user_data):
     """Registers a new user."""
-    new_id = max(user["id"] for user in users) + 1 if users else 1
+    conn = get_db_connection('pets.db')
+    cursor = conn.cursor()
+
+    # Insert new user into the database
+    cursor.execute(
+        "INSERT INTO users (user, email) VALUES (?, ?, ?, ?)",
+        (user_data.get("name"), user_data.get("email"))
+    )
+
+    conn.commit()
+
+    # get the id of the new user register
+    new_id = cursor.lastrowid
+    conn.close()
+
     new_user = {
         "id": new_id,
         "name": user_data.get("name"),
         "email": user_data.get("email")
     }
-    users.append(new_user)
     return new_user
 
 def get_user_adoption_progress(user_id):
@@ -54,20 +90,3 @@ def get_user_adoption_progress(user_id):
     if user:
         return user.get("adoption_progress", [])
     return {"error": "User not found"}
-
-def update_user_adoption_progress(user_id, pet_id, status):
-    """Update or add adoption progress for a user."""
-    user = get_user_by_id(user_id)
-    if not user:
-        return {"error": "User not found"}
-
-    # Check if there's already an entry for this pet_id
-    for progress in user["adoption_progress"]:
-        if progress["pet_id"] == pet_id:
-            progress["status"] = status  # Update status
-            return progress
-
-    # If no entry for the pet_id exists, add a new one
-    new_progress = {"pet_id": pet_id, "status": status}
-    user["adoption_progress"].append(new_progress)
-    return new_progress
