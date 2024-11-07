@@ -1,16 +1,13 @@
 name: CI Pipeline
-
 # This is a trigger for any push to the repo
 on:
   push:
     branches:
       - main
       - develop
-
 jobs:
   # Each job runs in parallel
   name_your_job_whatever_you_want:
-
     # runs-on indicates which GitHub "Runners" will run this CICD pipeline
     # For all CSE-2102 repos, just use the following line as is
     runs-on: self-hosted
@@ -19,7 +16,6 @@ jobs:
       matrix:
         #python-version: ["3.7", "3.8", "3.9", "3.10", "3.11"]
         python-version: ["3.8"]
-
     # Steps are run in sequence in this job. If one step fails, the entire job fails.
     steps:
       # Use this next line to pull your repo into the Docker container running the job
@@ -46,27 +42,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install pytest
           if [ -f ./backend/requirements.txt ]; then pip install -r ./backend/requirements.txt; fi
-      # initialize database for pytest
-      - name: Initialize the database
-      run: |
-        python -c "
-        import sqlite3
-        conn = sqlite3.connect('pets.db')
-        cursor = conn.cursor()
-        cursor.execute('''CREATE TABLE IF NOT EXISTS pets (
-                        id INTEGER PRIMARY KEY,
-                        name TEXT NOT NULL,
-                        breed TEXT,
-                        age INTEGER,
-                        description TEXT)''')
-        count = cursor.fetchone()[0]
-        if count == 0:
-        cursor.execute('''INSERT INTO pets (name, breed, age, description)
-                          VALUES (?, ?, ?, ?)''',
-                       ('Buddy', 'Golden Retriever', 3, 'Friendly and active'))
-        conn.commit()
-        conn.close()
-        "
       # Run pytest on your pulled codebase
       - name: Test with pytest
         run: |
