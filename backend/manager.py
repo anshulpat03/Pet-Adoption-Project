@@ -34,6 +34,23 @@ def manager_get_user_info(user_id):
         return {"error": f"User with ID {user_id} not found"}
     return user
 
+def update_user_adoption_progress(user_id, pet_id, status):
+    """Update or add adoption progress for a user."""
+    user = get_user_by_id(user_id)
+    if not user:
+        return {"error": "User not found"}
+
+    # Check if there's already an entry for this pet_id
+    for progress in user["adoption_progress"]:
+        if progress["pet_id"] == pet_id:
+            progress["status"] = status  # Update status
+            return progress
+
+    # If no entry for the pet_id exists, add a new one
+    new_progress = {"pet_id": pet_id, "status": status}
+    user["adoption_progress"].append(new_progress)
+    return new_progress
+
 # Example of how the manager might use this function
 
 # Manager retrieves the adoption progress for user with ID 3 (Charlie)
