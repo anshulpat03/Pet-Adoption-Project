@@ -6,7 +6,7 @@ from database import init_db
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from flasgger import Swagger
-from pets import get_all_pets, get_pet_by_id, create_pet, update_pet, delete_pet, fetch_pets_from_db
+from pets import get_all_pets, get_pet_by_id, create_pet, update_pet, delete_pet
 from user import get_user_by_id, register_user
 init_db()
 
