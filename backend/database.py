@@ -50,4 +50,4 @@ def init_user_db():
     
 def init_db():
     init_pet_db()
-    #init_user_db()
+    init_user_db()
