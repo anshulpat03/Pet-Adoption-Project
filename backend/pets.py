@@ -1,48 +1,120 @@
 """This is pets.py that has examples of pets and methods associted with a pet's bio info"""
 # pets.py
-pets = [
-    {"id": 1, "name": "Buddy", "type": "Dog", "age": 3},
-    {"id": 2, "name": "Mittens", "type": "Cat", "age": 5}
-]
+import sqlite3
 
-def get_all_pets():
-    """Returns a list of all pets."""
+# Connect to the pets.db SQLite database
+connection = sqlite3.connect('pets.db')
+cursor = connection.cursor()
+
+def get_db_connection(name):
+    conn = sqlite3.connect(name)
+    conn.row_factory = sqlite3.Row  # Optional, allows dictionary-like access to rows
+    return conn
+
+# Fetch pets from the database
+def fetch_pets_from_db():
+    conn = get_db_connection('pets.db')
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM pets")
+    pets = cursor.fetchall()
+    conn.close()
     return pets
 
-def get_pet_by_id(pet_id):
-    """Fetches a single pet by ID."""
-    for pet in pets:
-        if pet["id"] == pet_id:
-            return pet
-    return None
+# Initialize pets
+pets = fetch_pets_from_db()
 
-def create_pet(pet_data):
+def get_all_pets():
+    """Returns a list of all pets directly from the database."""
+    conn = get_db_connection('pets.db')
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM pets")
+    pets = cursor.fetchall()
+    conn.close()
+    return [dict(pet) for pet in pets]
+
+
+def get_pet_by_id(pet_id):
+    """Fetches a single pet by ID directly from the database."""
+    conn = get_db_connection('pets.db')
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM pets WHERE id = ?", (pet_id,))
+    pet = cursor.fetchone()
+    conn.close()
+    return dict(pet) if pet else None
+
+
+'''def create_pet(pet_data):
     """Adds a new pet to the collection."""
     new_id = max(pet["id"] for pet in pets) + 1 if pets else 1
     new_pet = {
         "id": new_id,
         "name": pet_data.get("name"),
-        "type": pet_data.get("type"),
-        "age": pet_data.get("age")
+        "breed": pet_data.get("breed"),
+        "age": pet_data.get("age"),
+        "description": pet_data.get("description")
     }
     pets.append(new_pet)
-    return new_pet
+    return new_pet'''
 
-def update_pet(pet_id, pet_data):
-    """Updates an existing pet's information by ID."""
-    pet = get_pet_by_id(pet_id)
-    if pet:
-        pet["name"] = pet_data.get("name", pet["name"])
-        pet["type"] = pet_data.get("type", pet["type"])
-        pet["age"] = pet_data.get("age", pet["age"])
-        return pet
-    return None
+def create_pet(pet_data):
+    """Adds a new pet to the database."""
+    conn = get_db_connection('pets.db')
+    cursor = conn.cursor()
+
+    # Insert new pet into the database
+    cursor.execute(
+        "INSERT INTO pets (name, breed, age, description) VALUES (?, ?, ?, ?)",
+        (pet_data.get("name"), pet_data.get("breed", "Unknown"), pet_data.get("age"), pet_data.get("description", "No description available"))
+    )
+    conn.commit()
+
+    # Get the ID of the newly inserted pet
+    new_pet_id = cursor.lastrowid
+    conn.close()
+
+    # Return the new pet with the assigned ID
+    return {
+        "id": new_pet_id,
+        "name": pet_data.get("name"),
+        "breed": pet_data.get("breed", "Unknown"),
+        "age": pet_data.get("age"),
+        "description": pet_data.get("description", "No description available")
+    }
+
+
+def update_pet(table, id, col, value):
+    try:
+        connection = sqlite3.connect("pets.db")
+        cursor = connection.cursor()
+        
+        # Use parameterized queries to avoid SQL injection
+        query = f"UPDATE {table} SET {col} = ? WHERE id = ?"
+        cursor.execute(query, (value, id))
+        
+        # Check if any row was updated
+        if cursor.rowcount == 0:
+            return False
+        
+        connection.commit()
+        return True
+    except sqlite3.Error as e:
+        print(f"Database error: {e}")
+        return False
+    finally:
+        connection.close()
 
 def delete_pet(pet_id):
-    """Deletes a pet by ID without using the global keyword."""
-    pet = next((p for p in pets if p["id"] == pet_id), None)
-    if pet:
-        # Reassign pets to a new list excluding the pet with the given ID
-        pets[:] = [p for p in pets if p["id"] != pet_id]
-        return True  # Indicates successful deletion
-    return False  # Indicates pet was not found
+    """Deletes a pet by ID from the database."""
+    conn = get_db_connection('pets.db')
+    cursor = conn.cursor()
+
+    cursor.execute("DELETE FROM pets WHERE id = ?", (pet_id,))
+    conn.commit()
+
+    if cursor.rowcount == 0:
+        conn.close()
+        return False  
+
+    conn.close()
+    return True  
+
