@@ -6,7 +6,7 @@ init_db()
 
 from flask import Flask, jsonify, request
 from flask_cors import CORS
-from pets import get_all_pets, get_pet_by_id, create_pet, update_pet, delete_pet
+from pets import get_all_pets, get_pet_by_id, create_pet, update_pet, delete_pet, fetch_pets_from_db
 from user import get_user_by_id, register_user
 
 
@@ -44,20 +44,23 @@ def add_pet():
 
 @app.route('/pets/<int:pet_id>', methods=['PUT'])
 def edit_pet(pet_id):
-    """Update pet details by pet ID"""
+    """Update pet details by pet ID and refresh in-memory list."""
     pet_data = request.json
     for col, value in pet_data.items():
         update_result = update_pet("pets", pet_id, col, value)
-        
-        # If the update fails for any column, return an error
         if not update_result:
             return jsonify({'error': f'Failed to update {col}'}), 400
 
-    # If all updates are successful, retrieve the updated data to confirm
+    # Refresh in-memory list after updating
+    global pets
+    pets = fetch_pets_from_db()
+
+    # Retrieve and return updated data
     updated_pet = get_pet_by_id(pet_id)
     if updated_pet:
         return jsonify(updated_pet), 200
     return jsonify({'error': 'Pet not found'}), 404
+
     
 
 @app.route('/pets/<int:pet_id>', methods=['DELETE'])

@@ -24,17 +24,26 @@ def fetch_pets_from_db():
 pets = fetch_pets_from_db()
 
 def get_all_pets():
-    """Returns a list of all pets."""
+    """Returns a list of all pets directly from the database."""
+    conn = get_db_connection('pets.db')
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM pets")
+    pets = cursor.fetchall()
+    conn.close()
     return [dict(pet) for pet in pets]
 
-def get_pet_by_id(pet_id):
-    """Fetches a single pet by ID."""
-    for pet in pets:
-        if pet["id"] == pet_id:
-            return dict(pet)
-    return None
 
-def create_pet(pet_data):
+def get_pet_by_id(pet_id):
+    """Fetches a single pet by ID directly from the database."""
+    conn = get_db_connection('pets.db')
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM pets WHERE id = ?", (pet_id,))
+    pet = cursor.fetchone()
+    conn.close()
+    return dict(pet) if pet else None
+
+
+'''def create_pet(pet_data):
     """Adds a new pet to the collection."""
     new_id = max(pet["id"] for pet in pets) + 1 if pets else 1
     new_pet = {
@@ -45,7 +54,33 @@ def create_pet(pet_data):
         "description": pet_data.get("description")
     }
     pets.append(new_pet)
-    return new_pet
+    return new_pet'''
+
+def create_pet(pet_data):
+    """Adds a new pet to the database."""
+    conn = get_db_connection('pets.db')
+    cursor = conn.cursor()
+
+    # Insert new pet into the database
+    cursor.execute(
+        "INSERT INTO pets (name, breed, age, description) VALUES (?, ?, ?, ?)",
+        (pet_data.get("name"), pet_data.get("breed", "Unknown"), pet_data.get("age"), pet_data.get("description", "No description available"))
+    )
+    conn.commit()
+
+    # Get the ID of the newly inserted pet
+    new_pet_id = cursor.lastrowid
+    conn.close()
+
+    # Return the new pet with the assigned ID
+    return {
+        "id": new_pet_id,
+        "name": pet_data.get("name"),
+        "breed": pet_data.get("breed", "Unknown"),
+        "age": pet_data.get("age"),
+        "description": pet_data.get("description", "No description available")
+    }
+
 
 def update_pet(table, id, col, value):
     try:
@@ -67,12 +102,19 @@ def update_pet(table, id, col, value):
         return False
     finally:
         connection.close()
-        
+
 def delete_pet(pet_id):
-    """Deletes a pet by ID without using the global keyword."""
-    pet = next((p for p in pets if p["id"] == pet_id), None)
-    if pet:
-        # Reassign pets to a new list excluding the pet with the given ID
-        pets[:] = [p for p in pets if p["id"] != pet_id]
-        return True  # Indicates successful deletion
-    return False  # Indicates pet was not found
+    """Deletes a pet by ID from the database."""
+    conn = get_db_connection('pets.db')
+    cursor = conn.cursor()
+
+    cursor.execute("DELETE FROM pets WHERE id = ?", (pet_id,))
+    conn.commit()
+
+    if cursor.rowcount == 0:
+        conn.close()
+        return False  
+
+    conn.close()
+    return True  
+
