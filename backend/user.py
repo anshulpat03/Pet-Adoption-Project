@@ -67,7 +67,7 @@ def register_user(user_data):
 
     # Insert new user into the database
     cursor.execute(
-        "INSERT INTO users (user, email) VALUES (?, ?)",
+        "INSERT INTO users (username, email) VALUES (?, ?)",
         (user_data.get("name"), user_data.get("email"))
     )
 
@@ -77,12 +77,11 @@ def register_user(user_data):
     new_id = cursor.lastrowid
     conn.close()
 
-    new_user = {
+    return {
         "id": new_id,
         "name": user_data.get("name"),
         "email": user_data.get("email")
     }
-    return new_user
 
 def get_user_adoption_progress(user_id):
     """Retrieve a user's adoption progress."""
