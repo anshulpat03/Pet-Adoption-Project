@@ -59,6 +59,17 @@ jobs:
                             VALUES (?, ?, ?, ?)''',
                          ('Buddy', 'Golden Retriever', 3, 'Friendly and active'))
           conn.commit()
+          conn.close()
+          conn = sqlite3.connect('users.db')
+          cursor = conn.cursor()
+          cursor.execute('''CREATE TABLE IF NOT EXISTS users (
+                        id INTEGER PRIMARY KEY,
+                        username TEXT NOT NULL,
+                        email TEXT NOT NULL UNIQUE)''')
+          cursor.execute('''INSERT INTO users (username, email)
+                      VALUES(?,?)''',
+                      ('John Doe', 'johndoe@example.com')) 
+          conn.commit()
           conn.close() "        
       # Run pytest on your pulled codebase
       - name: Test with pytest
