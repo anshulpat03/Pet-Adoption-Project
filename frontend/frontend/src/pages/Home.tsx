@@ -21,7 +21,7 @@ const Home: React.FC = () => {
                     we're excited to help you find your new best friend.</p>
             </div>
             <div className='button'>
-                <p>Meet all the adorable friends waiting for their forever home!</p>
+                <p>Each pet deserves a loving home—adopt today!</p>
                 <Button label="Browse Pets" onClick={handleButtonClick}/>
             </div>
         </div>
