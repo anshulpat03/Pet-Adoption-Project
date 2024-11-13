@@ -11,6 +11,60 @@
   will-change: filter;
   transition: filter 300ms;
 }
+
+nav {
+  background-color: #2424247d; /* Dark background */
+  padding: 0rem;         /* Add some padding */
+  position: fixed;       /* Fix the navbar to the top */
+  width: 100%;           /* Make it full width */
+  top: 0;                /* Position at the top */
+  z-index: 1000;         /* Keep it above other content */
+}
+/* Remove default list styling */
+.navbar {
+  display: flex;         /* Display list items in a row */
+  align-items: center;
+  padding: 10px;   
+  margin-left: -2vw;
+  justify-content: space-between; /* Center the navigation items */
+}
+
+.navbar-left a, .navbar-right a {
+  color: white;
+  text-decoration: none;
+  margin: 0 10px;
+}
+
+.navbar a:hover {
+  filter: drop-shadow(0 0 2em #ffffffff);
+}
+.navbar-left {
+  display: flex;
+  /* All left-aligned items are naturally on the left */
+}
+
+.navbar-right {
+  /* This will push the element to the right */
+  margin-left: auto;
+  padding-right: 1rem;
+}
+
+nav a{
+  display: inline-block; /* Allow padding to affect the whole link */
+  text-decoration: none; /* Remove underline */
+  position: relative;
+}
+
+nav ul li a::before {
+  content: ""; /* Empty content */
+  position: absolute; /* Position absolute to the link */
+  top: -10px; /* Extend above */
+  bottom: -10px; /* Extend below */
+  left: -15px; /* Extend to the left */
+  right: -15px; /* Extend to the right */
+  z-index: -1; /* Place behind the link */
+}
+
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
