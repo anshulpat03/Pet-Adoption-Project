@@ -13,7 +13,6 @@
 }
 
 nav {
-  background-color: #2424247d; 
   padding: 0rem;         
   position: fixed; 
   top: 0;
@@ -29,8 +28,8 @@ nav {
   padding: 10px;   
   padding-top: 30px;
   margin-left: -2vw;
-  justify-content: space-between; 
-  background-color: #333;
+  justify-content: space-between;
+
 }
 
 .navbar-left a, .navbar-right a {
@@ -57,22 +56,64 @@ nav a{
   position: relative;
 }
 
-nav ul li a::before {
-  content: ""; 
-  position: absolute; 
-  top: -10px; 
-  bottom: -10px; 
-  left: -15px; 
-  right: -15px; 
-  z-index: -1; 
-}
-
 .navbar-logo img {
   width: 100px;  /* Resize logo to a fixed width */
   height: auto;  /* Maintain aspect ratio */
-  margin-right: 15px;
+  margin-right: 5px;
+  margin-left: 20px;
   transform: translateY(-30px);  /* Space between the logo and the menu */
 }
+
+.landing-text {
+  transform: translate(-320px, 0px);
+  width: 600px;
+}
+.custom-button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #a39a9a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+  width: 200px;
+  height: 65px;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.button {
+  transform: translateY(20px);
+  color: #999;
+  text-align: start;
+  padding-left: 2rem;
+}
+
+.banner {
+  position: absolute;
+  width: 100%;
+  height: 700px; 
+  background-image: url('/images/dogs-bg2.png'); 
+  background-size: cover;
+  background-position: center;
+  opacity: 0.3; 
+  left:0%;
+  top: 0%;
+  z-index: -1;
+}
+
+.banner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3); 
+}
+
 
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
