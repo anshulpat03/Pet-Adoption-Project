@@ -9,13 +9,14 @@ const Navbar: React.FC = () => {
       <nav className="navbar">
         <div className="navbar-left">
           <Link to="/" className="navbar-logo">
-            <img src="/pet_adoption_logo.svg" alt="Home" className="navbar-icon" />
+            <img src="images/pet_adoption_logo.png" alt="Home" className="navbar-icon" />
           </Link>
 
           <Link to="/pets">Pets</Link>
+          <Link to="/contact">Contact Us</Link>
         </div>
         <div className="navbar-right">
-          <Link to="/contact">Contact Us</Link>
+          
         </div>
       </nav>
     </header>

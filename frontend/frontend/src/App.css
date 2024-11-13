@@ -13,20 +13,24 @@
 }
 
 nav {
-  background-color: #2424247d; /* Dark background */
-  padding: 0rem;         /* Add some padding */
-  position: fixed;       /* Fix the navbar to the top */
-  width: 100%;           /* Make it full width */
-  top: 0;                /* Position at the top */
-  z-index: 1000;         /* Keep it above other content */
+  background-color: #2424247d; 
+  padding: 0rem;         
+  position: fixed; 
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000; 
+  width: 100%;    
 }
-/* Remove default list styling */
+
 .navbar {
-  display: flex;         /* Display list items in a row */
-  align-items: center;
+  display: flex;         
+  align-items: start;
   padding: 10px;   
+  padding-top: 30px;
   margin-left: -2vw;
-  justify-content: space-between; /* Center the navigation items */
+  justify-content: space-between; 
+  background-color: #333;
 }
 
 .navbar-left a, .navbar-right a {
@@ -40,29 +44,34 @@ nav {
 }
 .navbar-left {
   display: flex;
-  /* All left-aligned items are naturally on the left */
 }
 
 .navbar-right {
-  /* This will push the element to the right */
   margin-left: auto;
   padding-right: 1rem;
 }
 
 nav a{
-  display: inline-block; /* Allow padding to affect the whole link */
-  text-decoration: none; /* Remove underline */
+  display: inline-block; 
+  text-decoration: none; 
   position: relative;
 }
 
 nav ul li a::before {
-  content: ""; /* Empty content */
-  position: absolute; /* Position absolute to the link */
-  top: -10px; /* Extend above */
-  bottom: -10px; /* Extend below */
-  left: -15px; /* Extend to the left */
-  right: -15px; /* Extend to the right */
-  z-index: -1; /* Place behind the link */
+  content: ""; 
+  position: absolute; 
+  top: -10px; 
+  bottom: -10px; 
+  left: -15px; 
+  right: -15px; 
+  z-index: -1; 
+}
+
+.navbar-logo img {
+  width: 100px;  /* Resize logo to a fixed width */
+  height: auto;  /* Maintain aspect ratio */
+  margin-right: 15px;
+  transform: translateY(-30px);  /* Space between the logo and the menu */
 }
 
 .logo:hover {
