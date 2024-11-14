@@ -30,8 +30,12 @@ def init_user_db():
         try:
             cursor = conn.cursor()
             cursor.execute(
-                'CREATE TABLE IF NOT EXISTS users(id INTEGER PRIMARY KEY, username TEXT NOT NULL, email TEXT NOT NULL UNIQUE, password TEXT NOT NULL)'
-                )
+                'CREATE TABLE IF NOT EXISTS users ('
+                'id INTEGER PRIMARY KEY, '
+                'username TEXT NOT NULL, '
+                'email TEXT NOT NULL UNIQUE, '
+                'password TEXT NOT NULL)'
+            )
             # Inserting three sample users
             users = [
                 ('John Doe', 'johndoe@example.com', 'testpassword1'),
@@ -53,8 +57,7 @@ def init_pets_db():
     """Initialize the databse for pets"""
     db_name = 'pets.db'
     if os.path.exists(db_name):
-        os.remove(db_name)
-    
+        os.remove(db_name)   
     conn = get_db_connection(db_name)
     cursor = conn.cursor()
     cursor.execute('''
@@ -93,15 +96,25 @@ def init_adoption_progress_db():
         try:
             cursor = conn.cursor()
             cursor.execute(
-               'CREATE TABLE IF NOT EXISTS adoption_progress (id INTEGER PRIMARY KEY, user_id INTEGER, pet_id INTEGER, status TEXT NOT NULL, FOREIGN KEY(user_id) REFERENCES users(id), FOREIGN KEY(pet_id) REFERENCES pets(id))'
-                )
+                'CREATE TABLE IF NOT EXISTS adoption_progress ('
+                'id INTEGER PRIMARY KEY, '
+                'user_id INTEGER, '
+                'pet_id INTEGER, '
+                'status TEXT NOT NULL, '
+                'FOREIGN KEY(user_id) REFERENCES users(id), '
+                'FOREIGN KEY(pet_id) REFERENCES pets(id))'
+            )
             # Inserting some sample adoption progress data
             adoption_data = [
                 (1, 1, "In Progress"),
                 (2, 2, "Completed"),
                 (3, 3, "Pending")
             ]
-            cursor.executemany('INSERT INTO adoption_progress (user_id, pet_id, status) VALUES (?, ?, ?)', adoption_data)
+            cursor.executemany(
+                'INSERT INTO adoption_progress (user_id, pet_id, status) '
+                'VALUES (?, ?, ?)',
+                adoption_data
+            )
             conn.commit()
         except sqlite3.Error as e:
             print(f"Error initializing adoption progress database: {e}")
