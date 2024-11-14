@@ -1,7 +1,7 @@
-this is the backend folder
+This is the backend folder
 
 Commands to run the container
 
-docker build -t team21 .
+docker build -t backendTeam21 .
 
-docker run -d -p 5000:5000 team21
+docker run -d -p 5000:5000 backendTeam21

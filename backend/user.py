@@ -4,32 +4,6 @@ Manages user data and adoption progress for a pet adoption system
 import sqlite3
 
 # users.py
-users2 = [
-    {
-        "id": 1,
-        "name": "Alice",
-        "email": "alice@example.com",
-        "adoption_progress": [
-            {"pet_id": 1, "status": "Pending"}
-        ]
-    },
-    {
-        "id": 2,
-        "name": "Bob",
-        "email": "bob@example.com",
-        "adoption_progress": [
-            {"pet_id": 2, "status": "Approved"}
-        ]
-    },
-    {
-        "id": 3,
-        "name": "Charlie",
-        "email": "charlie@example.com",
-        "adoption_progress": [
-            {"pet_id": 3, "status": "Denied"}
-        ]
-    }
-]
 def get_db_connection(name):
     """Get connection to database"""
     conn = sqlite3.connect(name)
@@ -56,10 +30,6 @@ def get_user_by_id(user_id):
     user = cursor.fetchone()
     conn.close()
     return dict(user) if user else None
-    #for user in users:
-        #if user["id"] == user_id:
-            #return user
-    #return None
 
 def register_user(user_data):
     """Registers a new user."""
