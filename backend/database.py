@@ -57,7 +57,7 @@ def init_pets_db():
     """Initialize the databse for pets"""
     db_name = 'pets.db'
     if os.path.exists(db_name):
-        os.remove(db_name)   
+        os.remove(db_name)  
     conn = get_db_connection(db_name)
     cursor = conn.cursor()
     cursor.execute('''

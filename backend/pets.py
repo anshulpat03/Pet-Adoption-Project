@@ -22,9 +22,6 @@ def fetch_pets_from_db():
     conn.close()
     return pets
 
-# Initialize pets
-pets = fetch_pets_from_db()
-
 def get_all_pets():
     """Returns a list of all pets directly from the database."""
     conn = get_db_connection('pets.db')

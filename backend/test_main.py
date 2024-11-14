@@ -48,7 +48,7 @@ def test_get_pet(test_client): # pylint: disable=W0621
 
 #     update_data = {"name": "Fluffy"}
 #     # Assuming pet with ID 1 exists
-#     response = test_client.put(f'/pets/{pet_id}', json=update_data)  
+#     response = test_client.put(f'/pets/{pet_id}', json=update_data)
 #     assert response.status_code in [200, 404]
 #     if response.status_code == 200:
 #         assert response.json['name'] == "Fluffy"
