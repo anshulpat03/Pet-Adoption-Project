@@ -1,6 +1,5 @@
 """This is manager.py file to access user and pet information."""
 # manager.py - Stubs for manager-specific API calls
-import sqlite3
 from pets import get_pet_by_id # create_pet, delete_pet
 from user import get_user_by_id # get_user_adoption_progress
 
@@ -59,7 +58,11 @@ def manager_get_user_info(user_id):
 
 #         # Transform the result into a list of dictionaries for easier JSON serialization
 #         adoption_progress = [
-#             {"adoption_id": row["adoption_id"], "status": row["status"], "pet_name": row["pet_name"], "breed": row["breed"], "age": row["age"]}
+#             {"adoption_id": row["adoption_id"],
+#              "status": row["status"],
+#              "pet_name": row["pet_name"],
+#              "breed": row["breed"],
+#              "age": row["age"]}
 #             for row in progress_data
 #         ]
 
