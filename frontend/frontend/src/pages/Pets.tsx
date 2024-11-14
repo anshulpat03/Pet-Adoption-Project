@@ -27,7 +27,6 @@ const Pets: React.FC = () => {
     setSearchTerm(event.target.value);
   };
 
-  // Filter pets based on the search term
   const filteredPets = pets.filter((pet) =>
     pet.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     pet.breed.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -35,7 +34,7 @@ const Pets: React.FC = () => {
   );
 
   return (
-    <div style={{ padding: '2rem', textAlign: 'center'}}>
+    <div style={{ padding: '2rem', textAlign: 'center' }}>
       <h1>Pets Page</h1>
       <p>This is where you can browse all available pets for adoption.</p>
 
@@ -55,38 +54,52 @@ const Pets: React.FC = () => {
         }}
       />
 
-      <div style={{ marginTop: '2rem', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        {filteredPets.map((pet) => (
-          <div key={pet.id} style={{ marginBottom: '1rem', textAlign: 'center', display: 'flex', alignItems: 'center' }}>
-            <img 
-              src={pet.image} 
-              alt={`${pet.name}`} 
-              style={{ 
-                width: '100px',  
-                height: '100px',  
-                borderRadius: '50%', 
-                marginRight: '1rem' 
-              }} 
-            />
-            <span>{pet.name}</span>
-            <button onClick={() => handleViewDetails(pet)} style={{ marginLeft: '1rem'}}>
-              View Details
-            </button>
-          </div>
-        ))}
-      </div>
-
-      {selectedPet && (
-        <div style={{ marginTop: '2rem'}}>
-          <h2>{selectedPet.name}</h2>
-          <p>Breed: {selectedPet.breed}</p>
-          <p>Age: {selectedPet.age}</p>
-          <p>Description: {selectedPet.description}</p>
-          <button onClick={() => setSelectedPet(null)} >
-            Close
-          </button>
+      {/* Main Content Area with Flex Layout */}
+      <div style={{ display: 'flex', alignItems: 'flex-start', gap: '2rem' }}>
+        
+        {/* Pet List Section */}
+        <div style={{ flex: 1 }}>
+          {filteredPets.length > 0 ? (
+            filteredPets.map((pet) => (
+              <div key={pet.id} style={{ marginBottom: '1rem', textAlign: 'center', display: 'flex', alignItems: 'center' }}>
+                <img 
+                  src={pet.image} 
+                  alt={`${pet.name}`} 
+                  style={{ 
+                    width: '100px',  
+                    height: '100px',  
+                    borderRadius: '50%', 
+                    marginRight: '1rem' 
+                  }} 
+                />
+                <span>{pet.name}</span>
+                <button onClick={() => handleViewDetails(pet)} style={{ marginLeft: '6rem' }}>
+                  View Details
+                </button>
+              </div>
+            ))
+          ) : (
+            <p>No pets found at this moment :/</p>
+          )}
         </div>
-      )}
+
+        {/* Pet Details Section */}
+        <div style={{ flex: '0 0 300px', padding: '1rem', borderRadius: '8px' }}>
+          {selectedPet ? (
+            <>
+              <h2>{selectedPet.name}</h2>
+              <p><strong>Breed:</strong> {selectedPet.breed}</p>
+              <p><strong>Age:</strong> {selectedPet.age}</p>
+              <p><strong>Description:</strong> {selectedPet.description}</p>
+              <button onClick={() => setSelectedPet(null)}>
+                Close
+              </button>
+            </>
+          ) : (
+            <p> </p>
+          )}
+        </div>
+      </div>
     </div>
   );
 };
