@@ -13,34 +13,34 @@ backend: Flask application that serves as the API, interacting with a SQLite dat
 
 Get Started with The Steps Below
 
-Clone the Repository
+# Clone the Repository
 git clone git@github.uconn.edu:CSE2102-Fall24/cse2102-fall-Team21.git 
 
-Build and Run the Backend
+# Build and Run the Backend
 1. Navigate to Backend Folder
 
-cd backend
+   cd backend
 
 2. Build the Docker image:
 
-docker build -t pet-backend .
+   docker build -t pet-backend .
 
 3. Run the Docker container:
 
-docker run -d -p 5000:5000 --name pet-backend pet-backend
+   docker run -d -p 5000:5000 --name pet-backend pet-backend
 
 *Note* This will start the backend server on port 5000.
 
-Build and Run the Frontend
+# Build and Run the Frontend
 
 1. Navigate to Frontend Folder
 
-cd ../frontend
+   cd ../frontend
 
 2. Build the Docker image
 
-docker build -t pet-frontend .
+   docker build -t pet-frontend .
 
 3. Run the Docker container
 
-docker run -d -p 5173:80 --name pet-frontend pet-frontend
+   docker run -d -p 5173:80 --name pet-frontend pet-frontend
