@@ -11,12 +11,10 @@ const Navbar: React.FC = () => {
           <Link to="/" className="navbar-logo">
             <img src="images/pet_adoption_logo.png" alt="Home" className="navbar-icon" />
           </Link>
-
           <Link to="/pets">Pets</Link>
           <Link to="/contact">Contact Us</Link>
         </div>
         <div className="navbar-right">
-          
         </div>
       </nav>
     </header>
