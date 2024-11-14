@@ -32,6 +32,7 @@ jobs:
         # if: steps.cache-restore.outputs.cache-hit != 'true' 
         run: |
           cd frontend
+          cd frontend
           npm ci - ignore-scripts
         
       #- name: Test with Jest
@@ -43,5 +44,6 @@ jobs:
       - name: Eslint
         run: |
           pwd
+          cd frontend
           cd frontend
           npm run lint
