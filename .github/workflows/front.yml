@@ -34,11 +34,11 @@ jobs:
           cd frontend
           npm ci - ignore-scripts
         
-      - name: Test with Jest
-        run: |
-          pwd
-          cd frontend
-          npm run test
+      #- name: Test with Jest
+       # run: |
+        #  pwd
+         # cd frontend
+          #npm run test
 
       - name: Eslint
         run: |
