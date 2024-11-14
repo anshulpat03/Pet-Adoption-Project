@@ -48,7 +48,7 @@ def get_pet_by_id(pet_id):
 #     """Adds a new pet to the database."""
 #     conn = get_db_connection('pets.db')
 #     cursor = conn.cursor()  # pylint: disable=W0621
-
+#
 #     # Insert new pet into the database
 #     cursor.execute(
 #         "INSERT INTO pets (name, breed, age, description) VALUES (?, ?, ?, ?)",
@@ -56,11 +56,11 @@ def get_pet_by_id(pet_id):
 #           pet_data.get("age"), pet_data.get("description", "No description available"))
 #     )
 #     conn.commit()
-
+#
 #     # Get the ID of the newly inserted pet
 #     new_pet_id = cursor.lastrowid
 #     conn.close()
-
+#
 #     # Return the new pet with the assigned ID
 #     return {
 #         "id": new_pet_id,

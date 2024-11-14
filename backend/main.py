@@ -2,9 +2,8 @@
 """
 This module provides a Flask web server with routes for managing pets and users.
 """
-
 from database import initialize_all
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify
 from flask_cors import CORS
 from flasgger import Swagger
 from pets import get_all_pets, get_pet_by_id #, create_pet, update_pet, delete_pet
