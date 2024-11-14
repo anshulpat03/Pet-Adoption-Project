@@ -24,7 +24,6 @@ def init_user_db():
     db_name = 'users.db'
     if os.path.exists(db_name):
         os.remove(db_name)
-
     conn = get_db_connection(db_name)
     if conn is not None:
         try:
