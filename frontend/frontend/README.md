@@ -1,7 +1,9 @@
 Pet Adoption Web Application
+
 This project is a pet adoption web application that includes both a frontend (React) and a backend (Flask) that interact with each other. The frontend allows users to view and filter pets, while the backend provides an API to retrieve pet information stored in a SQLite database.
 
 Prerequisites
+
 Docker installed on your machine
 Project Structure
 frontend: React application for displaying and interacting with pet data.
@@ -12,8 +14,7 @@ backend: Flask application that serves as the API, interacting with a SQLite dat
 Get Started with The Steps Below
 
 Clone the Repository
-git clone https://github.com/your-username/pet-adoption-app.git
-cd pet-adoption-app
+git clone git@github.uconn.edu:CSE2102-Fall24/cse2102-fall-Team21.git 
 
 Build and Run the Backend
 1. Navigate to Backend Folder
