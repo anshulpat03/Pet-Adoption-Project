@@ -16,6 +16,8 @@ backend: Flask application that serves as the API, interacting with a SQLite dat
 # Clone the Repository
 git clone git@github.uconn.edu:CSE2102-Fall24/cse2102-fall-Team21.git 
 
+# Make Sure You Have 2 Terminals, One for Backend Docker, One for Frontend Docker
+
 # Build and Run the Backend
 1. Navigate to Backend Folder
 
