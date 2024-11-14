@@ -5,9 +5,10 @@ on:
     branches:
       - main
       - develop
+
 jobs:
   # Each job runs in parallel
-  name_your_job_whatever_you_want:
+  backend-test:
     # runs-on indicates which GitHub "Runners" will run this CICD pipeline
     # For all CSE-2102 repos, just use the following line as is
     runs-on: self-hosted
@@ -75,3 +76,42 @@ jobs:
       - name: Test with pytest
         run: |
           pytest
+
+  react_test_and_lint:
+    name: Test and Lint React app
+    runs-on: self-hosted
+    steps:
+      - name: Checkout the files
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js 
+        uses: actions/setup-node@v2 
+        with: 
+          node-version: '20.3.1' 
+ 
+      # - name: Restore cached dependencies 
+      #   id: cache-restore 
+      #   uses: actions/cache@v3 
+      #   with: 
+      #     path: ./src/node_modules 
+      #     key: npm-${{ hashFiles('./src/package-lock.json') }} 
+
+      - name: Install dependencies 
+        # if: steps.cache-restore.outputs.cache-hit != 'true' 
+        run: |
+          cd frontend
+          cd frontend
+          npm ci - ignore-scripts
+        
+      #- name: Test with Jest
+       # run: |
+        #  pwd
+         # cd frontend
+          #npm run test
+
+      - name: Eslint
+        run: |
+          pwd
+          cd frontend
+          cd frontend
+          npm run lint
