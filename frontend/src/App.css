@@ -57,12 +57,63 @@ nav a{
 }
 
 .navbar-logo img {
-  width: 100px;  /* Resize logo to a fixed width */
-  height: auto;  /* Maintain aspect ratio */
+  width: 100px;  
+  height: auto; 
   margin-right: 5px;
   margin-left: 20px;
-  transform: translateY(-30px);  /* Space between the logo and the menu */
+  transform: translateY(-30px); 
 }
+
+.navbar-contact {
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+  margin: 0 10px;
+  font-size: 1.1em;
+}
+
+.navbar-contact:hover {
+  filter: drop-shadow(0 0 2em #ffffff);
+}
+
+
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; 
+}
+
+.popup-content {
+  background-color: #242424;
+  padding: 20px;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 400px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+.popup-close-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #a39a9a;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.popup-close-button:hover {
+  background-color: #888888;
+}
+
 
 .landing-text {
   transform: translate(-320px, 0px);
