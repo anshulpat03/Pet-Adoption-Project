@@ -10,10 +10,10 @@ def get_db_connection(db_name):
     """
     try:
         conn = sqlite3.connect(db_name)
-        conn.row_factory = sqlite3.Row  #
+        conn.row_factory = sqlite3.Row  
                                  # Allows dictionary-like access to rows
         return conn
-    except sqlite3.Error as e:
+    except sqlite3.Error as e: # pylint: disable=C0103
         print(f"Error connecting to database {db_name}: {e}")
         return None
 
@@ -45,7 +45,7 @@ def init_user_db():
                 'INSERT INTO users (username, email, password) VALUES (?, ?, ?)',users
                 )
             conn.commit()
-        except sqlite3.Error as e:
+        except sqlite3.Error as e: # pylint: disable=W0621
             print(f"Error initializing user database: {e}")
         finally:
             conn.close()
@@ -115,7 +115,7 @@ def init_adoption_progress_db():
                 adoption_data
             )
             conn.commit()
-        except sqlite3.Error as e:
+        except sqlite3.Error as e: # pylint: disable=W0621
             print(f"Error initializing adoption progress database: {e}")
         finally:
             conn.close()
