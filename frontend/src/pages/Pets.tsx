@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
+import Pet from "../components/Pet.tsx";
 
 interface Pet {
   id: number;
@@ -16,9 +17,9 @@ const Pets: React.FC = () => {
 
   useEffect(() => {
     fetch("http://localhost:5000/pets")
-      .then(response => response.json())
-      .then(data => setPets(data))
-      .catch(error => console.error("Error fetching pets:", error));
+      .then((response) => response.json())
+      .then((data) => setPets(data))
+      .catch((error) => console.error("Error fetching pets:", error));
   }, []);
 
   const handleViewDetails = (pet: Pet) => {
@@ -29,68 +30,58 @@ const Pets: React.FC = () => {
     setSearchTerm(event.target.value);
   };
 
-  const filteredPets = pets.filter((pet) =>
-    pet.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    pet.breed.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    pet.description.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredPets = pets.filter(
+    (pet) =>
+      pet.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      pet.breed.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      pet.description.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
-    <div style={{ padding: '2rem', textAlign: 'center' }}>
+    <div style={{ padding: "2rem", textAlign: "center" }}>
       <h1>Pets Page</h1>
       <p>This is where you can browse all available pets for adoption.</p>
 
-      <input 
-        type="text" 
-        placeholder="Search by name, breed, or description..." 
-        value={searchTerm} 
-        onChange={handleSearch} 
+      <input
+        type="text"
+        placeholder="Search by name, breed, or description..."
+        value={searchTerm}
+        onChange={handleSearch}
         style={{
-          padding: '0.5rem',
-          width: '100%',
-          maxWidth: '400px',
-          marginBottom: '1rem',
-          borderRadius: '5px',
-          border: '1px solid #ccc',
+          padding: "0.5rem",
+          width: "100%",
+          maxWidth: "400px",
+          marginBottom: "1rem",
+          borderRadius: "5px",
+          border: "1px solid #ccc",
         }}
       />
 
-      <div style={{ display: 'flex', alignItems: 'flex-start', gap: '2rem' }}>
+      <div style={{ display: "flex", alignItems: "flex-start", gap: "2rem" }}>
         <div style={{ flex: 1 }}>
           {filteredPets.length > 0 ? (
             filteredPets.map((pet) => (
-              <div key={pet.id} style={{ marginBottom: '1rem', textAlign: 'center', display: 'flex', alignItems: 'center' }}>
-                <img 
-                  src={pet.image} 
-                  alt={`${pet.name}`} 
-                  style={{ 
-                    width: '100px',  
-                    height: '100px',  
-                    borderRadius: '50%', 
-                    marginRight: '1rem' 
-                  }} 
-                />
-                <span>{pet.name}</span>
-                <button onClick={() => handleViewDetails(pet)} style={{ marginLeft: '1rem' }}>
-                  View Details
-                </button>
-              </div>
+              <Pet key={pet.id} pet={pet} onViewDetails={handleViewDetails} />
             ))
           ) : (
             <p>No pets found at this moment :(</p>
           )}
         </div>
 
-        <div style={{ flex: '0 0 300px', padding: '1rem', borderRadius: '8px' }}>
+        <div style={{ flex: "0 0 300px", padding: "1rem", borderRadius: "8px" }}>
           {selectedPet ? (
             <>
               <h2>{selectedPet.name}</h2>
-              <p><strong>Breed:</strong> {selectedPet.breed}</p>
-              <p><strong>Age:</strong> {selectedPet.age}</p>
-              <p><strong>Description:</strong> {selectedPet.description}</p>
-              <button onClick={() => setSelectedPet(null)}>
-                Close
-              </button>
+              <p>
+                <strong>Breed:</strong> {selectedPet.breed}
+              </p>
+              <p>
+                <strong>Age:</strong> {selectedPet.age}
+              </p>
+              <p>
+                <strong>Description:</strong> {selectedPet.description}
+              </p>
+              <button onClick={() => setSelectedPet(null)}>Close</button>
             </>
           ) : (
             <p>Select a pet to see details here</p>

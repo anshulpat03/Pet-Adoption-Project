@@ -1,0 +1,81 @@
+/* AddPetForm.css */
+
+/* General form styling */
+.add-pet-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem; /* Reduced gap */
+    background-color: #262626;
+    padding: 1rem; /* Reduced padding */
+    border-radius: 8px; /* Slightly rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 400px; /* Smaller form width */
+    max-width: 90%;
+    margin: 0 auto;
+  }
+  
+  .add-pet-form h2 {
+    margin-bottom: 1rem;
+    font-size: 1.25rem; /* Reduced font size */
+    color: #ffffff;
+    text-align: center;
+    padding-bottom: 0.5rem;
+  }
+  
+  /* Form group styling */
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem; /* Reduced gap */
+  }
+  
+  .form-group label {
+    font-weight: bold;
+    color: #ffffff;
+    font-size: 0.875rem; /* Smaller label font */
+  }
+  
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 0.875rem; /* Smaller input font */
+  }
+  
+  .form-group textarea {
+    resize: none;
+    height: 40px; /* Smaller height for textarea */
+  }
+  
+  /* Buttons styling */
+  .form-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem; /* Reduced gap */
+  }
+  
+  .btn {
+    padding: 0.4rem 0.75rem; /* Smaller padding */
+    font-size: 0.875rem; /* Smaller font size */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .submit-btn {
+    background-color: #a39a9a65;
+    }
+  .submit-btn:hover {
+    background-color: #a39a9ab5;
+  }
+  
+
+  .cancel-btn {
+    background-color: #dc354686;
+  }
+  .cancel-btn:hover {
+    background-color: #c82333;
+  }
+  

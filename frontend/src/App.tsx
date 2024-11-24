@@ -3,17 +3,30 @@ import Navbar from "./components/Navbar.tsx"
 import './App.css'
 import Pets from "./pages/Pets.tsx";
 import Home from "./pages/Home.tsx";
+import Login from "./pages/Login.tsx";
+import Contact from "./components/Contact.tsx";
+import { useState } from "react";
+import AdminDashboard from "./pages/AdminDashboard.tsx";
 
 function App() {
+  const [isContactOpen, setIsContactOpen] = useState(false);
+
+  const handleOpenContact = () => setIsContactOpen(true);
+  const handleCloseContact = () => setIsContactOpen(false);
+  //<Route path="/admin" element={<AdminPage />} />
   return (
     <>
       <Router>
-        <Navbar />
+        <Navbar onContactClick={handleOpenContact}/>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/pets" element={<Pets />} />
+          
+          <Route path="/login" element={<Login />} />
+          <Route path="/admin" element={<AdminDashboard />} />
         </Routes>
       </Router>
+      <Contact isOpen={isContactOpen} onClose={handleCloseContact} />
     </>
   )
 }
