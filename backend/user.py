@@ -19,9 +19,6 @@ def fetch_users_from_db():
     conn.close() # pylint: disable=W0621
     return users # pylint: disable=W0621
 
-# Initialize users
-users = fetch_users_from_db()
-
 def get_user_by_id(user_id):
     """Fetches a user by their ID."""
     conn = get_db_connection('users.db')
@@ -77,3 +74,20 @@ def get_adoption_status(user_id):
     conn.close()
     return status["adoption_status"] if status else None
 
+def add_form(data):
+    """Store application form to database."""
+    try:
+        conn = get_db_connection('forms.db')
+        cursor = conn.cursor()
+        cursor.execute(
+            "INSERT INTO forms (user_id, name, salary, housing, contact, pet_name) VALUES (?, ?, ?, ?,?)",
+            (data.get("user_id"), data.get("name"), data.get("salary"), data.get("housing"),
+            data.get("contact"), data.get("pet_name"))
+        )
+        conn.commit()
+        return True
+    except sqlite3.Error as error:
+        print(f"Database error: {error}")
+        return False
+    finally:
+        conn.close()
