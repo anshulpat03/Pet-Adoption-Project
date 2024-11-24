@@ -31,6 +31,20 @@ def get_user_by_id(user_id):
     conn.close()
     return dict(user) if user else None
 
+def login_user(username, password):
+    """Validates the username and password."""
+    conn = get_db_connection('users.db')
+    cursor = conn.cursor()
+    cursor.execute(
+        "SELECT * FROM users WHERE username = ? AND password = ?",
+        (username, password)
+    )
+    user = cursor.fetchone()
+    conn.close()
+    if user:
+        return dict(user)  # Return user details if login is successful
+    return None  # Return None if credentials are invalid
+
 def register_user(user_data):
     """Registers a new user."""
     conn = get_db_connection('users.db')
@@ -54,9 +68,12 @@ def register_user(user_data):
         "email": user_data.get("email")
     }
 
-def get_user_adoption_progress(user_id):
-    """Retrieve a user's adoption progress."""
-    user = get_user_by_id(user_id)
-    if user:
-        return user.get("adoption_progress", [])
-    return {"error": "User not found"}
+def get_adoption_status(user_id):
+    """Fetch the adoption status of a user."""
+    conn = get_db_connection('users.db')
+    cursor = conn.cursor()
+    cursor.execute("SELECT adoption_status FROM users WHERE id = ?", (user_id,))
+    status = cursor.fetchone()
+    conn.close()
+    return status["adoption_status"] if status else None
+
