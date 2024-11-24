@@ -1,34 +1,3 @@
-/*import React, { useState } from "react";
-import AddPetForm from "../components/AddPetForm";
-import AdminPetList from "../components/AdminPetList";
-import "./AdminDashboard.css";
-
-const AdminDashboard: React.FC = () => {
-  const [showAddPetPopup, setShowAddPetPopup] = useState(false);
-
-  return (
-    <div className="admin-dashboard">
-      <h1>Admin Dashboard</h1>
-      <button className="btn add-pet-btn" onClick={() => setShowAddPetPopup(true)}>
-        Add Pet
-      </button>
-
-      {showAddPetPopup && (
-        <div className="popup-overlay">
-          <div className="popup-container">
-            <AddPetForm onClose={() => setShowAddPetPopup(false)} />
-          </div>
-        </div>
-      )}
-
-      <div className="admin-pet-list">
-        <AdminPetList />
-      </div>
-    </div>
-  );
-};
-
-export default AdminDashboard;*/
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // For navigation
 import AddPetForm from '../components/AddPetForm';
@@ -44,19 +13,16 @@ interface User {
 }
 
 const AdminDashboard: React.FC = () => {
-  // User states
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Pet form popup state
   const [showAddPetPopup, setShowAddPetPopup] = useState(false);
 
   const navigate = useNavigate();
 
-  // Fetch users
   useEffect(() => {
-    fetch('/api/users') // Ensure this matches your backend API
+    fetch('/api/users') 
       .then((response) => {
         if (!response.ok) {
           throw new Error('Failed to fetch user data');
@@ -64,7 +30,7 @@ const AdminDashboard: React.FC = () => {
         return response.json();
       })
       .then((data) => {
-        setUsers(data.slice(0, 3)); // Display only the first 3 users
+        setUsers(data.slice(0, 3)); 
         setLoading(false);
       })
       .catch((err) => {
@@ -73,7 +39,6 @@ const AdminDashboard: React.FC = () => {
       });
   }, []);
 
-  // Handle loading and error states for users
   if (loading) {
     return <p>Loading users...</p>;
   }
@@ -151,7 +116,7 @@ const AdminDashboard: React.FC = () => {
       </div>
 
       {/* Pet Management Section */}
-      <h2>Pet Management</h2>
+      <h2 className='admin-pet-header'>Pet Management</h2>
       <button
         className="btn add-pet-btn"
         onClick={() => setShowAddPetPopup(true)}

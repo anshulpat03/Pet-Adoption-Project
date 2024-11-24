@@ -13,7 +13,6 @@ function App() {
 
   const handleOpenContact = () => setIsContactOpen(true);
   const handleCloseContact = () => setIsContactOpen(false);
-  //<Route path="/admin" element={<AdminPage />} />
   return (
     <>
       <Router>
