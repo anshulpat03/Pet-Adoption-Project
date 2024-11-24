@@ -16,6 +16,7 @@ const Navbar: React.FC<NavbarProps> = ({ onContactClick }) => {
             <img src="images/pet_adoption_logo.png" alt="Home" className="navbar-icon" />
           </Link>
           <Link to="/pets">Pets</Link>
+          <Link to="/admin">Admin Dashboard</Link>
           <span className="navbar-contact" onClick={onContactClick}>
             Contact Us
           </span>

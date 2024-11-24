@@ -5,6 +5,7 @@ import Pets from "./pages/Pets.tsx";
 import Home from "./pages/Home.tsx";
 import Contact from "./components/Contact.tsx";
 import { useState } from "react";
+import AdminDashboard from "./pages/AdminDashboard.tsx";
 
 function App() {
   const [isContactOpen, setIsContactOpen] = useState(false);
@@ -19,6 +20,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/pets" element={<Pets />} />
+          <Route path="/admin" element={<AdminDashboard />} />
         </Routes>
       </Router>
       <Contact isOpen={isContactOpen} onClose={handleCloseContact} />
