@@ -140,6 +140,7 @@ def login():
         return jsonify({"message": "Login successful", "user": user}), 200
     return jsonify({"error": "Invalid username or password"}), 401
 
+
 #@app.route('/users/<int:user_id>/status', methods=['PUT'])
 #def modify_adoption_status(user_id):
     """Update the adoption status of a user."""
@@ -156,6 +157,15 @@ def register_new_user():
     data = request.get_json()
     new_user = register_user(data)
     return jsonify(new_user), 201
+  
+@app.route('/users/<int:user_id>/form', methods=['POST'])
+def apply_to_adopt(user_id):
+    """Fill out application form to adopt pet"""
+    data = request.get_json()
+    new_application = add_form(data, user_id)
+    if new_application:
+        return jsonify({"message": "We received your form. Thank you for applying!"}), 200
+    return jsonify({"error": "something went wrong"}), 404
 
 # Manager Routes
 @app.route('/manager/pet/<int:pet_id>', methods=['GET'])
