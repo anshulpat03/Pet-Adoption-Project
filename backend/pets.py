@@ -77,20 +77,6 @@ def create_pet(pet_data):
     }
 
 
-    # Get the ID of the newly inserted pet
-    new_pet_id = cursor.lastrowid
-    conn.close()
-
-    # Return the new pet with the assigned ID
-    return {
-        "id": new_pet_id,
-        "name": pet_data.get("name"),
-        "breed": pet_data.get("breed", "Unknown"),
-        "age": pet_data.get("age"),
-        "description": pet_data.get("description", "No description available")
-    }
-
-
 def update_pet(table, id, col, value):  # pylint: disable=W0622,C0103
     """Updates a specific pet's information in the database."""
     try:
