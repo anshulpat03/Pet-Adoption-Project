@@ -55,8 +55,8 @@ def init_user_db():
 def init_pets_db():
     """Initialize the databse for pets"""
     db_name = 'pets.db'
-    if os.path.exists(db_name):
-        os.remove(db_name)
+    #if os.path.exists(db_name):
+    #    os.remove(db_name)
     conn = get_db_connection(db_name)
     cursor = conn.cursor()
     cursor.execute('''
@@ -82,14 +82,44 @@ def init_pets_db():
     conn.commit()
     conn.close()
 
+def init_form_db():
+    """Initialize the databse for application form"""
+    db_name = 'forms.db'
+    if os.path.exists(db_name):
+        os.remove(db_name)
+    conn = get_db_connection(db_name)
+    cursor = conn.cursor()
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS forms (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            salary INTEGER,
+            housing TEXT NOT NULL,
+            contact TEXT NOT NULL,
+            pet_name TEXT NOT NULL
+        )
+    ''')
+
+    # Insert sample data
+    sample_forms = [
+        ('John Doe', 5000, 'Own a house', 'johndoe@example.com', 'Bella'),
+        ('Alice Johnson', 3900, 'Rent a apartment.', '999-888-4507', 'Max'),
+    ]
+    cursor.executemany(
+        'INSERT INTO forms (name, salary, housing, contact, pet_name) VALUES (?, ?, ?, ?, ?)',
+        sample_forms)
+    conn.commit()
+    conn.close()
+
 def initialize_all():
     """
     Calls all individual initialization functions to set up the databases.
     """
     init_user_db()
     init_pets_db()
+    init_form_db()
     print("All databases initialized.")
 
 # Running this file will initialize the databases.
-if __name__ == '__main__':
-    initialize_all()
+#if __name__ == '__main__':
+#    initialize_all()
