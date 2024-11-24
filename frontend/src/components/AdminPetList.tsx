@@ -21,34 +21,9 @@ const AdminPetList: React.FC = () => {
       .catch((error) => console.error("Error fetching pets:", error));
   }, []);
 
-  const handleChangeStatus = (petId: number, applicantId: number, status: string) => {
-    fetch(`http://localhost:5000/pets/${petId}/applicants/${applicantId}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ status }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Status updated:", data);
-        setPets((prevPets) =>
-          prevPets.map((pet) =>
-            pet.id === petId
-              ? {
-                  ...pet,
-                  applicants: pet.applicants.map((applicant) =>
-                    applicant.id === applicantId ? { ...applicant, status } : applicant
-                  ),
-                }
-              : pet
-          )
-        );
-      })
-      .catch((error) => console.error("Error updating status:", error));
-  };
-
+  
   return (
     <div className="admin-pet-list">
-      <h2>Manage Pets</h2>
       {pets.map((pet) => (
         <div key={pet.id} className="pet-card">
           <img src={pet.image} alt={pet.name} className="pet-image" />

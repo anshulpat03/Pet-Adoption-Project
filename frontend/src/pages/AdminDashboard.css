@@ -5,6 +5,10 @@ body {
     text-align: center;
     padding: 2rem;
   }
+
+  .admin-pet-header {
+    transform: translateY(100px);
+  }
   
   .btn {
     padding: 10px 20px;
