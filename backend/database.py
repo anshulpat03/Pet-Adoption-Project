@@ -10,7 +10,7 @@ def get_db_connection(db_name):
     """
     try:
         conn = sqlite3.connect(db_name)
-        conn.row_factory = sqlite3.Row  
+        conn.row_factory = sqlite3.Row
                                  # Allows dictionary-like access to rows
         return conn
     except sqlite3.Error as e: # pylint: disable=C0103

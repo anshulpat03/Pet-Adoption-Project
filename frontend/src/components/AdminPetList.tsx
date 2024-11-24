@@ -21,6 +21,26 @@ const AdminPetList: React.FC = () => {
       .catch((error) => console.error("Error fetching pets:", error));
   }, []);
 
+  const handleRemovePet = (id: number) => {
+    // Confirm before deleting
+    if (!window.confirm("Are you sure you want to remove this pet?")) {
+      return;
+    }
+
+    // Make a DELETE request to the backend
+    fetch(`http://localhost:5000/pets/${id}`, {
+      method: "DELETE",
+    })
+      .then((response) => {
+        if (response.ok) {
+          // Update state to reflect the removed pet
+          setPets((prevPets) => prevPets.filter((pet) => pet.id !== id));
+        } else {
+          console.error("Failed to delete pet");
+        }
+      })
+      .catch((error) => console.error("Error deleting pet:", error));
+  };
   
   return (
     <div className="admin-pet-list">
@@ -37,6 +57,12 @@ const AdminPetList: React.FC = () => {
           <p>
             <strong>Description:</strong> {pet.description}
           </p>
+          <button
+              className="btn remove-pet-btn"
+              onClick={() => handleRemovePet(pet.id)}
+            >
+              Remove Pet
+          </button>
         </div>
       ))}
     </div>

@@ -20,7 +20,7 @@ def fetch_users_from_db():
     return users # pylint: disable=W0621
 
 # Initialize users
-users = fetch_users_from_db()
+#users = fetch_users_from_db()
 
 def get_user_by_id(user_id):
     """Fetches a user by their ID."""
@@ -76,4 +76,3 @@ def get_adoption_status(user_id):
     status = cursor.fetchone()
     conn.close()
     return status["adoption_status"] if status else None
-
