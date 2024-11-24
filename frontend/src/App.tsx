@@ -3,6 +3,8 @@ import Navbar from "./components/Navbar.tsx"
 import './App.css'
 import Pets from "./pages/Pets.tsx";
 import Home from "./pages/Home.tsx";
+import AdminPage from './pages/AdminPage'; 
+import Login from "./pages/Login.tsx";
 import Contact from "./components/Contact.tsx";
 import { useState } from "react";
 import AdminDashboard from "./pages/AdminDashboard.tsx";
@@ -20,7 +22,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/pets" element={<Pets />} />
-          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/admin" element={<AdminPage />} />
+          <Route path="/login" element={<Login />} />
+          /*<Route path="/admin" element={<AdminDashboard />} />*/
         </Routes>
       </Router>
       <Contact isOpen={isContactOpen} onClose={handleCloseContact} />

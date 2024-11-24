@@ -3,11 +3,11 @@
 This module provides a Flask web server with routes for managing pets and users.
 """
 from database import initialize_all
-from flask import Flask, jsonify
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 from flasgger import Swagger
 from pets import get_all_pets, get_pet_by_id #, create_pet, update_pet, delete_pet
-# from user import get_user_by_id, register_user
+from user import get_user_by_id, get_adoption_status, fetch_users_from_db, login_user
 # from manager import (
 #     manager_get_pet_info,
 #     manager_add_pet,
@@ -93,14 +93,56 @@ def get_pet(pet_id):
 #         return jsonify({"message": "Pet deleted successfully"}), 200
 #     return jsonify({"error": "Pet not found"}), 404
 
-# # User Routes
-# @app.route('/users/<int:user_id>', methods=['GET'])
-# def get_user(user_id):
-#     """Fetch a user by ID."""
-#     user = get_user_by_id(user_id)
-#     if user:
-#         return jsonify(user), 200
-#     return jsonify({"error": "User not found"}), 404
+# User Routes
+@app.route('/users/<int:user_id>', methods=['GET'])
+def get_user(user_id):
+    """Fetch a user by ID."""
+    user = get_user_by_id(user_id)
+    if user:
+        return jsonify(user), 200
+    return jsonify({"error": "User not found"}), 404
+
+@app.route('/users', methods=['GET'])
+def get_all_users():
+    """Fetch all users and their adoption progress."""
+    users = fetch_users_from_db()
+    if users:
+        return jsonify([dict(user) for user in users]), 200
+    return jsonify({"error": "No users found"}), 404
+
+@app.route('/users/<int:user_id>/status', methods=['GET'])
+def fetch_adoption_status(user_id):
+    """Fetch the adoption status of a user."""
+    status = get_adoption_status(user_id)
+    if status:
+        return jsonify({"user_id": user_id, "adoption_status": status}), 200
+    return jsonify({"error": "User not found"}), 404
+
+@app.route('/login', methods=['POST'])
+def login():
+    """Login a user by validating username and password."""
+    data = request.get_json()
+    username = data.get("username")
+    password = data.get("password")
+
+    if not username or not password:
+        return jsonify({"error": "Username and password are required"}), 400
+
+    user = login_user(username, password)
+
+    if user:
+        return jsonify({"message": "Login successful", "user": user}), 200
+    return jsonify({"error": "Invalid username or password"}), 401
+
+# @app.route('/users/<int:user_id>/status', methods=['PUT'])
+# def modify_adoption_status(user_id):
+#     """Update the adoption status of a user."""
+#     data = request.get_json()
+#     new_status = data.get("adoption_status")
+#     if new_status not in ["pending", "accepted", "denied"]:
+#         return jsonify({"error": "Invalid status"}), 400
+#     updated = update_adoption_status(user_id, new_status)
+#     return jsonify(updated), 200
 
 # @app.route('/users', methods=['POST'])
 # def register_new_user():
