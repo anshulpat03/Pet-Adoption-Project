@@ -123,7 +123,6 @@ const AdminDashboard: React.FC = () => {
       >
         Add Pet
       </button>
-
       {showAddPetPopup && (
         <div className="popup-overlay">
           <div className="popup-container">
@@ -131,7 +130,6 @@ const AdminDashboard: React.FC = () => {
           </div>
         </div>
       )}
-
       <div className="admin-pet-list">
         <AdminPetList />
       </div>
@@ -140,4 +138,3 @@ const AdminDashboard: React.FC = () => {
 };
 
 export default AdminDashboard;
-
