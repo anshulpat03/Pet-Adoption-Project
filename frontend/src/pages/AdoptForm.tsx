@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from "react";
+import './AdoptForm.css';
 //import { useParams } from "react-router-dom";
 
 const AdoptForm: React.FC = () => {
