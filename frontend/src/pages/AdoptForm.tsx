@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-//import { useParams } from "react-router-dom";  // Import useParams to access the dynamic parameter
+//import { useParams } from "react-router-dom";
 
 const AdoptForm: React.FC = () => {
-  //const { user_id } = useParams<{ user_id: string }>();  // Get the user_id from the URL params
+  //const { user_id } = useParams<{ user_id: string }>();  // Get the user_id from the URL params 
 
   useEffect(() => {
-    console.log("Pet Adoption Form");  // Just logging the user ID for now
+    console.log("Pet Adoption Form"); 
   });
 
   const [formData, setFormData] = useState({
@@ -18,7 +18,7 @@ const AdoptForm: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const response = await fetch(`/form`, {  // Send request to Flask backend with user_id
+    const response = await fetch(`/form`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
