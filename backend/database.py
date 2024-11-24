@@ -92,6 +92,7 @@ def init_form_db():
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS forms (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id INTEGER,
             name TEXT NOT NULL,
             salary INTEGER,
             housing TEXT NOT NULL,
@@ -102,11 +103,11 @@ def init_form_db():
 
     # Insert sample data
     sample_forms = [
-        ('John Doe', 5000, 'Own a house', 'johndoe@example.com', 'Bella'),
-        ('Alice Johnson', 3900, 'Rent a apartment.', '999-888-4507', 'Max'),
+        (1, 'John Doe', 5000, 'Own a house', 'johndoe@example.com', 'Bella'),
+        (3, 'Alice Johnson', 3900, 'Rent a apartment.', '999-888-4507', 'Max'),
     ]
     cursor.executemany(
-        'INSERT INTO forms (name, salary, housing, contact, pet_name) VALUES (?, ?, ?, ?, ?)',
+        'INSERT INTO forms (user_id, name, salary, housing, contact, pet_name) VALUES (?, ?, ?, ?, ?, ?)',
         sample_forms)
     conn.commit()
     conn.close()
