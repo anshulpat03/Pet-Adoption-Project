@@ -7,7 +7,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from flasgger import Swagger
 from pets import get_all_pets, get_pet_by_id #, create_pet, update_pet, delete_pet
-from user import get_user_by_id, get_adoption_status, fetch_users_from_db, login_user
+from user import get_user_by_id, get_adoption_status, fetch_users_from_db, login_user, add_form
 # from manager import (
 #     manager_get_pet_info,
 #     manager_add_pet,
@@ -150,6 +150,15 @@ def login():
 #     data = request.get_json()
 #     new_user = register_user(data)
 #     return jsonify(new_user), 201
+
+@app.route('/users/<int:user_id>/form', methods=['POST'])
+def apply_to_adopt():
+    """Fill out application form to adopt pet"""
+    data = request.get_json()
+    new_application = add_form(data)
+    if new_application:
+        return jsonify({"message": "We received your form. Thank you for applying!"}), 200
+    return jsonify({"error": "something went wrong"}), 404
 
 # # Manager Routes
 # @app.route('/manager/pet/<int:pet_id>', methods=['GET'])
