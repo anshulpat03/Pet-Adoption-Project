@@ -19,6 +19,12 @@ const AdoptForm: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const { name, salary, housing, contact, pet_name } = formData;
+    if (!name || !salary || !housing || !contact || !pet_name) {
+      console.error("All fields must be filled out.");
+      return;
+    }
+
     const response = await fetch(`/form`, {
       method: "POST",
       headers: {
@@ -46,7 +52,7 @@ const AdoptForm: React.FC = () => {
         <div>
           <label>Montly Salary:</label>
           <input
-            type="interger"
+            type="number"
             value={formData.salary}
             onChange={(e) => setFormData({ ...formData, salary: e.target.value })}
             required
@@ -62,7 +68,7 @@ const AdoptForm: React.FC = () => {
           />
         </div>
         <div>
-          <label>How to contact you?</label>
+          <label>What is your email address?</label>
           <input
             type="text"
             value={formData.contact}
@@ -71,7 +77,7 @@ const AdoptForm: React.FC = () => {
           />
         </div>
         <div>
-        <label>Name of pet that you want to adopt:</label>
+        <label>Name of the pet that you want to adopt:</label>
         <input
             type="text"
             value={formData.pet_name}

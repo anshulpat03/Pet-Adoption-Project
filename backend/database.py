@@ -20,8 +20,8 @@ def get_db_connection(db_name):
 def init_user_db():
     """initialize databse for users"""
     db_name = 'users.db'
-    if os.path.exists(db_name):
-        os.remove(db_name)
+    # if os.path.exists(db_name):
+    #     os.remove(db_name)
     conn = get_db_connection(db_name)
     if conn is not None:
         try:
@@ -55,62 +55,75 @@ def init_user_db():
 def init_pets_db():
     """Initialize the databse for pets"""
     db_name = 'pets.db'
-    #if os.path.exists(db_name):
-    #    os.remove(db_name)
+    
     conn = get_db_connection(db_name)
-    cursor = conn.cursor()
-    cursor.execute('''
-        CREATE TABLE IF NOT EXISTS pets (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT NOT NULL,
-            breed TEXT,
-            age INTEGER,
-            description TEXT,
-            image TEXT
-        )
-    ''')
+    if conn is not None:
+        try:
+            cursor = conn.cursor()
+            cursor.execute('''
+                CREATE TABLE IF NOT EXISTS pets (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    name TEXT NOT NULL,
+                    breed TEXT,
+                    age INTEGER,
+                    description TEXT,
+                    image TEXT
+                )
+            ''')
 
-    # Insert sample data
-    sample_pets = [
-        ('Bella', 'Labrador', 3, 'Friendly and energetic.', '/images/Labrador.png'),
-        ('Max', 'Golden Retriever', 5, 'Loyal and calm.', '/images/Golden Retriever.png'),
-        ('Lucy', 'Bulldog', 2, 'Playful and loving.', '/images/Bulldog.png')
-    ]
-    cursor.executemany(
-        'INSERT INTO pets (name, breed, age, description, image) VALUES (?, ?, ?, ?, ?)',
-        sample_pets)
-    conn.commit()
-    conn.close()
-
+            # Insert sample data
+            sample_pets = [
+                ('Bella', 'Labrador', 3, 'Friendly and energetic.', '/images/Labrador.png'),
+                ('Max', 'Golden Retriever', 5, 'Loyal and calm.', '/images/Golden Retriever.png'),
+                ('Lucy', 'Bulldog', 2, 'Playful and loving.', '/images/Bulldog.png')
+            ]
+            cursor.executemany(
+                'INSERT INTO pets (name, breed, age, description, image) VALUES (?, ?, ?, ?, ?)',
+                sample_pets)
+            conn.commit()
+        except sqlite3.Error as e: # pylint: disable=W0621
+            print(f"Error initializing user database: {e}")
+        finally:
+            conn.close()
+    else:
+        print("Failed to initialize pets database due to connection error.")
+    
 def init_form_db():
     """Initialize the databse for application form"""
     db_name = 'forms.db'
-    if os.path.exists(db_name):
-        os.remove(db_name)
+    # if os.path.exists(db_name):
+    #     os.remove(db_name)
     conn = get_db_connection(db_name)
-    cursor = conn.cursor()
-    cursor.execute('''
-        CREATE TABLE IF NOT EXISTS forms (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            user_id INTEGER,
-            name TEXT NOT NULL,
-            salary INTEGER,
-            housing TEXT NOT NULL,
-            contact TEXT NOT NULL,
-            pet_name TEXT NOT NULL
-        )
-    ''')
+    if conn is not None:
+        try:
+            cursor = conn.cursor()
+            cursor.execute('''
+                CREATE TABLE IF NOT EXISTS forms (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_id INTEGER,
+                    name TEXT NOT NULL,
+                    salary INTEGER,
+                    housing TEXT NOT NULL,
+                    contact TEXT NOT NULL,
+                    pet_name TEXT NOT NULL
+                )
+            ''')
 
-    # Insert sample data
-    sample_forms = [
-        (1, 'John Doe', 5000, 'Own a house', 'johndoe@example.com', 'Bella'),
-        (3, 'Alice Johnson', 3900, 'Rent a apartment.', '999-888-4507', 'Max'),
-    ]
-    cursor.executemany(
-        'INSERT INTO forms (user_id, name, salary, housing, contact, pet_name) VALUES (?, ?, ?, ?, ?, ?)',
-        sample_forms)
-    conn.commit()
-    conn.close()
+            # Insert sample data
+            sample_forms = [
+                (1, 'John Doe', 5000, 'Own a house', 'johndoe@example.com', 'Bella'),
+                (3, 'Alice Johnson', 3900, 'Rent a apartment.', '999-888-4507', 'Max'),
+            ]
+            cursor.executemany(
+                'INSERT INTO forms (user_id, name, salary, housing, contact, pet_name) VALUES (?, ?, ?, ?, ?, ?)',
+                sample_forms)
+            conn.commit()
+        except sqlite3.Error as e: # pylint: disable=W0621
+            print(f"Error initializing user database: {e}")
+        finally:
+            conn.close()
+    else: 
+            print("Failed to initialize forms database due to connection error.")
 
 def initialize_all():
     """
