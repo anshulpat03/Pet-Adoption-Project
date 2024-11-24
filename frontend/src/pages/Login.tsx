@@ -51,10 +51,23 @@ const Login: React.FC = () => {
         overflow: 'hidden', // Prevent scrollbars
       }}
     >
+      {/* Black box in the top-left corner */}
+      <div
+        style={{
+          position: 'absolute',
+          top: '0',
+          left: '0',
+          width: '500px', // Width of the black box
+          height: '90px', // Height of the black box
+          backgroundColor: '#151414', // Black background
+          borderRadius: '20px'
+        }}
+      ></div>
+      
       <form
         onSubmit={handleSubmit}
         style={{
-          background: 'rgba(255, 255, 255, 0.8)', // Semi-transparent white background
+          background: 'rgba(0, 0, 0, 0.8)', // Semi-transparent white background
           padding: '2rem',
           borderRadius: '8px',
           boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',

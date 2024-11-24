@@ -20,7 +20,7 @@ body {
   }
   
   .add-pet-btn {
-    background-color: #a39a9a;
+    background-color: #006603;
   }
   .add-pet-btn:hover {
     filter: drop-shadow(0 0 1.5em #ffffffa0);
