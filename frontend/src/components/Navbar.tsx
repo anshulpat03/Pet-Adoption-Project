@@ -17,6 +17,7 @@ const Navbar: React.FC<NavbarProps> = ({ onContactClick }) => {
           </Link>
           <Link to="/pets">Pets</Link>
           <Link to="/admin">Admin Dashboard</Link>
+          <Link to="/form">Adoption Form</Link>
           <span className="navbar-contact" onClick={onContactClick}>
             Contact Us
           </span>
