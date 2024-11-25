@@ -58,7 +58,7 @@ const Login: React.FC = () => {
           position: 'absolute',
           top: '0',
           left: '0',
-          width: '500px', // Width of the black box
+          width: '600px', // Width of the black box
           height: '90px', // Height of the black box
           backgroundColor: '#151414', // Black background
           borderRadius: '20px'
