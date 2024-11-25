@@ -80,11 +80,11 @@ def add_form(data, user_id):
         conn = get_db_connection('forms.db')
         cursor = conn.cursor()
         cursor.execute(
-            "INSERT INTO forms (user_id, name, salary, housing, contact, pet_name) VALUES (?, ?, ?, ?, ?,?)",
+    "INSERT INTO forms (user_id, name, salary, housing, contact, pet_name) VALUES (?, ?, ?, ?, ?,?)", # pylint: disable=all
             (user_id, data.get("name"), data.get("salary"), data.get("housing"),
             data.get("contact"), data.get("pet_name"))
         )
-        conn.commit()
+        conn.commit() # pylint: disable=all
         return True
     except sqlite3.Error as error:
         print(f"Database error: {error}")

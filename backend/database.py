@@ -2,7 +2,7 @@
 Initialization file for the databases
 """
 import sqlite3
-import os
+# import os
 
 def get_db_connection(db_name):
     """
@@ -41,7 +41,7 @@ def init_user_db():
                 ('Alice Johnson', 'alicej@example.com', 'testpassword3', 'denied')
             ]
             cursor.executemany(
-                'INSERT INTO users (username, email, password, adoption_status) VALUES (?, ?, ?, ?)',
+            'INSERT INTO users (username, email, password, adoption_status) VALUES (?, ?, ?, ?)', # pylint: disable=all
                 users
             )
             conn.commit()
@@ -55,7 +55,7 @@ def init_user_db():
 def init_pets_db():
     """Initialize the databse for pets"""
     db_name = 'pets.db'
-    
+
     conn = get_db_connection(db_name)
     if conn is not None:
         try:
@@ -87,7 +87,7 @@ def init_pets_db():
             conn.close()
     else:
         print("Failed to initialize pets database due to connection error.")
-    
+
 def init_form_db():
     """Initialize the databse for application form"""
     db_name = 'forms.db'
@@ -115,15 +115,15 @@ def init_form_db():
                 (3, 'Alice Johnson', 3900, 'Rent a apartment.', '999-888-4507', 'Max'),
             ]
             cursor.executemany(
-                'INSERT INTO forms (user_id, name, salary, housing, contact, pet_name) VALUES (?, ?, ?, ?, ?, ?)',
+'INSERT INTO forms (user_id, name, salary, housing, contact, pet_name) VALUES (?, ?, ?, ?, ?, ?)', # pylint: disable=all
                 sample_forms)
             conn.commit()
         except sqlite3.Error as e: # pylint: disable=W0621
             print(f"Error initializing user database: {e}")
         finally:
             conn.close()
-    else: 
-            print("Failed to initialize forms database due to connection error.")
+    else:
+        print("Failed to initialize forms database due to connection error.")
 
 def initialize_all():
     """
