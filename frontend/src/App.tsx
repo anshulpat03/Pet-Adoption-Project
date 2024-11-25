@@ -8,6 +8,7 @@ import Contact from "./components/Contact.tsx";
 import { useState } from "react";
 import AdminDashboard from "./pages/AdminDashboard.tsx";
 import AdoptForm from "./pages/AdoptForm.tsx";
+import UserDashboard from "./pages/UserDashboard.tsx";
 
 function App() {
   const [isContactOpen, setIsContactOpen] = useState(false);
@@ -25,6 +26,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/form" element={<AdoptForm />} />
+          <Route path="/dashboard" element={<UserDashboard />} />
         </Routes>
       </Router>
       <Contact isOpen={isContactOpen} onClose={handleCloseContact} />
