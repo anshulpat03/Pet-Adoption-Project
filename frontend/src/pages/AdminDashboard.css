@@ -1,0 +1,78 @@
+body {
+    overflow: scroll;
+}
+.admin-dashboard {
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .admin-pet-header {
+    transform: translateY(100px);
+  }
+  
+  .btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .add-pet-btn {
+    background-color: #006603;
+  }
+  .add-pet-btn:hover {
+    filter: drop-shadow(0 0 1.5em #ffffffa0);
+  }
+
+
+  
+  .popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .popup-container {
+    background-color: #262626;
+    padding: 20px;
+    border-radius: 10px;
+    width: 400px;
+    box-shadow: 0 5px 15px rgba(86, 84, 84, 0.3);
+    text-align: left;
+  }
+  
+  .add-pet-form .form-group {
+    margin-bottom: 10px;
+  }
+  
+  .add-pet-form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .add-pet-form input,
+  .add-pet-form textarea {
+    width: 96%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .add-pet-form textarea {
+    resize: none;
+  }
+  
+  .form-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }

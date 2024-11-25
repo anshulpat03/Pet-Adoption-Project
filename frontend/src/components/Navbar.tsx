@@ -3,7 +3,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Navbar: React.FC = () => {
+interface NavbarProps {
+  onContactClick: () => void;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ onContactClick }) => {
   return (
     <header>
       <nav className="navbar">
@@ -12,9 +16,14 @@ const Navbar: React.FC = () => {
             <img src="images/pet_adoption_logo.png" alt="Home" className="navbar-icon" />
           </Link>
           <Link to="/pets">Pets</Link>
-          <Link to="/contact">Contact Us</Link>
+          <Link to="/admin">Admin Dashboard</Link>
+          <Link to="/form">Adoption Form</Link>
+          <span className="navbar-contact" onClick={onContactClick}>
+            Contact Us
+          </span>
         </div>
         <div className="navbar-right">
+        <Link to="/dashboard">User Dashboard</Link>
         </div>
       </nav>
     </header>
