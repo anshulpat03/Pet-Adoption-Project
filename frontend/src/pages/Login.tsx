@@ -21,10 +21,11 @@ const Login: React.FC = () => {
       });
 
       const data = await response.json();
+      console.log("Server response:", data);
       if (response.ok) {
-        alert('Login successful!');
-        console.log('User Data:', data.user);
-        navigate('/dashboard'); // Redirect to dashboard
+        console.log('user_id:', data.user_id);
+        alert(`Welcome ${data.user_id}`);
+        navigate(`/users/${data.user_id}`); // Redirect to dashboard
       } else {
         setError(data.error);
       }
