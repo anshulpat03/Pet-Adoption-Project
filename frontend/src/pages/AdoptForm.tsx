@@ -6,23 +6,24 @@ import { useNavigate } from 'react-router-dom';
 
 const AdoptForm: React.FC = () => {
   // Get the user_id from localStorage
-  const user_id = localStorage.getItem('user_id');
+  const id = localStorage.getItem('user_id');
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!user_id) {
+    if (!id) {
       alert(`Login required!`);
       navigate('/login');  // Redirect to login page if not logged in
     }
-  }, [navigate, user_id]);
+  }, [navigate, id]);
 
   const [formData, setFormData] = useState({
+    user_id: id || "",  // Initialize user_id from localStorage
     name: "",
     salary: "",
-    housing:"",
-    contact:"",
-    pet_name:"",
+    housing: "",
+    contact: "",
+    pet_name: "",
   });
  
   const handleSubmit = async (e: React.FormEvent) => {
@@ -34,7 +35,7 @@ const AdoptForm: React.FC = () => {
       return;
     }
     try {
-      const response = await fetch(`/form`, {
+      const response = await fetch(`/api/form`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
