@@ -1,15 +1,21 @@
 
-import React, { useState } from "react";
+import React, {useEffect, useState } from "react";
 import './AdoptForm.css';
 import { useNavigate } from 'react-router-dom';
 
-//import { useParams } from "react-router-dom";
 
 const AdoptForm: React.FC = () => {
-  //const { user_id } = useParams<{ user_id: int }>();  // Get the user_id from the URL params 
-
+  // Get the user_id from localStorage
+  const user_id = localStorage.getItem('user_id');
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user_id) {
+      alert(`Login required!`);
+      navigate('/login');  // Redirect to login page if not logged in
+    }
+  }, [navigate, user_id]);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -18,7 +24,7 @@ const AdoptForm: React.FC = () => {
     contact:"",
     pet_name:"",
   });
-
+ 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
@@ -38,7 +44,7 @@ const AdoptForm: React.FC = () => {
       const data = await response.json();
       if (response.ok) {
         alert('Form submited!');
-        navigate('/pets'); // Redirect to dashboard
+        navigate('/dashboard'); // Redirect to dashboard
       } else {
         setError(data.error);
       }

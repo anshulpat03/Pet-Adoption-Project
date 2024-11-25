@@ -23,6 +23,7 @@ const Navbar: React.FC<NavbarProps> = ({ onContactClick }) => {
           </span>
         </div>
         <div className="navbar-right">
+        <Link to="/dashboard">User Dashboard</Link>
         </div>
       </nav>
     </header>
