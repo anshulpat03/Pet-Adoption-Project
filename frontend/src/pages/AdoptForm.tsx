@@ -43,7 +43,7 @@ const AdoptForm: React.FC = () => {
         setError(data.error);
       }
     } catch (err) {
-      console.error('Error logging in:', err);
+      console.error('Error submitting form:', err);
       setError('An unexpected error occurred');
     }
   };
