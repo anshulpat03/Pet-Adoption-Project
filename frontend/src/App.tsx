@@ -15,21 +15,20 @@ function App() {
   const handleOpenContact = () => setIsContactOpen(true);
   const handleCloseContact = () => setIsContactOpen(false);
   return (
-    <>
+    <div id = "app-root" className = "dark-theme">
       <Router>
         <Navbar onContactClick={handleOpenContact}/>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/pets" element={<Pets />} />
-          
           <Route path="/login" element={<Login />} />
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/form" element={<AdoptForm />} />
         </Routes>
       </Router>
       <Contact isOpen={isContactOpen} onClose={handleCloseContact} />
-    </>
-  )
+    </div>
+  );
 }
 
 export default App
