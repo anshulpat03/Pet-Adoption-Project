@@ -2,7 +2,7 @@
 Initialization file for the databases
 """
 import sqlite3
-# import os
+import os # pylint: disable=all
 
 def get_db_connection(db_name):
     """
