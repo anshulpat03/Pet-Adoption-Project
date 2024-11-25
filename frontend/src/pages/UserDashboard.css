@@ -1,0 +1,59 @@
+/* Dashboard container for full-page styling */
+.dashboard-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f4f4f4;
+    padding: 20px;
+  }
+  
+  /* Main content area for the dashboard */
+  .dashboard-content {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+  }
+  
+  /* Styling for headings */
+  .dashboard-content h1 {
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+    color: #333;
+  }
+  
+  /* Styling for user info (email, username, user_id) */
+  .user-info p {
+    font-size: 1.1rem;
+    margin: 0.5rem 0;
+    color: #555;
+  }
+  
+  /* Styling for error message */
+  .error-message {
+    color: red;
+    font-size: 1rem;
+    margin-top: 1rem;
+  }
+  
+  /* Styling for the logout button */
+  .logout-button {
+    margin-top: 2rem;
+    background-color: #007BFF;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1.1rem;
+  }
+  
+  .logout-button:hover {
+    background-color: #0056b3;
+  }
+  

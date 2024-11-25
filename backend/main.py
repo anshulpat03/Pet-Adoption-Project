@@ -7,7 +7,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from flasgger import Swagger
 from pets import get_all_pets, get_pet_by_id, create_pet, update_pet, delete_pet
-from user import get_user_by_id, get_adoption_status, fetch_users_from_db, login_user, register_user
+from user import get_user_by_id, get_adoption_status, fetch_users_from_db, login_user, register_user, add_form
 from manager import (
     manager_get_pet_info,
     manager_add_pet,
@@ -109,7 +109,7 @@ def remove_pet(pet_id):
 @app.route('/users/<int:user_id>', methods=['GET'])
 def get_user(user_id):
     """Fetch a user by ID."""
-    user = get_user_by_id(user_id)
+    user = get_user_by_id(int(user_id))
     if user:
         return jsonify(user), 200
     return jsonify({"error": "User not found"}), 404
@@ -143,7 +143,7 @@ def login():
     user = login_user(username, password)
 
     if user:
-        return jsonify({"message": "Login successful", "user": user}), 200
+        return jsonify({"message": "Login successful", "user_id": user["id"]}), 200
     return jsonify({"error": "Invalid username or password"}), 401
 
 
