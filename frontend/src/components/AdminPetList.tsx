@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import EditPetForm from "../components/EditPetForm";
 import "./AdminPetList.css";
 
 interface Pet {
@@ -8,11 +9,11 @@ interface Pet {
   age: number;
   description: string;
   image: string;
-  applicants: { id: number; name: string; status: string }[];
 }
 
 const AdminPetList: React.FC = () => {
   const [pets, setPets] = useState<Pet[]>([]);
+  const [editingPet, setEditingPet] = useState<Pet | null>(null);
 
   useEffect(() => {
     fetch("http://localhost:5000/pets")
@@ -20,6 +21,8 @@ const AdminPetList: React.FC = () => {
       .then((data) => setPets(data))
       .catch((error) => console.error("Error fetching pets:", error));
   }, []);
+
+  
 
   const handleRemovePet = (id: number) => {
     // Confirm before deleting
@@ -41,7 +44,12 @@ const AdminPetList: React.FC = () => {
       })
       .catch((error) => console.error("Error deleting pet:", error));
   };
-  
+  const handleEditPet = (updatedPet: Pet) => {
+    setPets((prevPets) =>
+      prevPets.map((pet) => (pet.id === updatedPet.id ? updatedPet : pet))
+    );
+  };
+
   return (
     <div className="admin-pet-list">
       {pets.map((pet) => (
@@ -63,8 +71,27 @@ const AdminPetList: React.FC = () => {
             >
               Remove Pet
           </button>
+
+          <button
+              className="btn edit-pet-btn"
+              onClick={() => setEditingPet(pet)}
+            >
+              Edit Pet
+          </button>
+
         </div>
       ))}
+      {editingPet && (
+        <div className="popup-overlay">
+          <div className="popup-container">
+            <EditPetForm
+              pet={editingPet}
+              onClose={() => setEditingPet(null)}
+              onSubmit={handleEditPet}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
