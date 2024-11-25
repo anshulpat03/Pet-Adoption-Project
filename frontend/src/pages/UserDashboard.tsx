@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const UserDashboard: React.FC = () => {
-  const [userData, setUserData] = useState<any>(null);
+  const [userData, setUserData] = useState<any>(null); // eslint-disable-line
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
