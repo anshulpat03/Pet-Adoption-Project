@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // For navigation
 import AddPetForm from '../components/AddPetForm';
-import EditPetForm from '../components/EditPetForm';
+import EditPetForm from '../components/AddPetForm';
 import AdminPetList from '../components/AdminPetList';
 import './AdminDashboard.css';
 
