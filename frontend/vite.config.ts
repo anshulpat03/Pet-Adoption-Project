@@ -12,5 +12,7 @@ export default defineConfig({
         rewrite: (path) => path.replace(/^\/api/, ''), // Rewrite /api/users to /users
       },
     },
+    host: '0.0.0.0',
+    port: 5173,
   },
 });
