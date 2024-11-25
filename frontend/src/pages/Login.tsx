@@ -24,8 +24,9 @@ const Login: React.FC = () => {
       console.log("Server response:", data);
       if (response.ok) {
         console.log('user_id:', data.user_id);
-        alert(`Welcome ${data.user_id}`);
-        navigate(`/users/${data.user_id}`); // Redirect to dashboard
+        localStorage.setItem('user_id', data.user_id);
+        alert(`Welcome back!`);
+        navigate(`/dashboard`); // Redirect to dashboard
       } else {
         setError(data.error);
       }
