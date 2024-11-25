@@ -74,14 +74,14 @@ def get_adoption_status(user_id):
     conn.close()
     return status["adoption_status"] if status else None
 
-def add_form(data, user_id):
+def add_form(data):
     """Store application form to database."""
     try:
         conn = get_db_connection('forms.db')
         cursor = conn.cursor()
         cursor.execute(
             "INSERT INTO forms (user_id, name, salary, housing, contact, pet_name) VALUES (?, ?, ?, ?, ?,?)",
-            (user_id, data.get("name"), data.get("salary"), data.get("housing"),
+            (int(data.get("user_id")), data.get("name"), data.get("salary"), data.get("housing"),
             data.get("contact"), data.get("pet_name"))
         )
         conn.commit()

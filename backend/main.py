@@ -158,11 +158,11 @@ def register_new_user():
     new_user = register_user(data)
     return jsonify(new_user), 201
   
-@app.route('/users/<int:user_id>/form', methods=['POST'])
-def apply_to_adopt(user_id):
+@app.route('/form', methods=['POST'])
+def apply_to_adopt():
     """Fill out application form to adopt pet"""
     data = request.get_json()
-    new_application = add_form(data, user_id)
+    new_application = add_form(data)
     if new_application:
         return jsonify({"message": "We received your form. Thank you for applying!"}), 200
     return jsonify({"error": "something went wrong"}), 404
