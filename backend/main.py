@@ -22,7 +22,7 @@ def create_app():
     return app
 
 app = create_app()
-CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
+CORS(app)
 
 # Swagger setup for API documentation
 swagger_spec = {
@@ -85,9 +85,15 @@ def add_pet():
 def edit_pet(pet_id):
     """Update a pet's information."""
     data = request.get_json()
-    updated_pet = update_pet(pet_id, data)
+    updated_pet = False
+    for col, value in data.items():
+        if update_pet("pets", pet_id, col, value):  # Pass table name ("pets"), pet_id, column, and new value
+            updated_pet = True
+
     if updated_pet:
-        return jsonify(updated_pet), 200
+        # Retrieve updated pet from database (this is optional, but can be useful for confirmation)
+        updated_pet_data = get_pet_by_id(pet_id)
+        return jsonify(updated_pet_data), 200
     return jsonify({"error": "Pet not found"}), 404
 
 @app.route('/pets/<int:pet_id>', methods=['DELETE'])
