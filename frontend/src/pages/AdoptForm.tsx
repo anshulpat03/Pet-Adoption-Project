@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 //import { useParams } from "react-router-dom";
 
 const AdoptForm: React.FC = () => {
-  //const { user_id } = useParams<{ user_id: string }>();  // Get the user_id from the URL params 
+  //const { user_id } = useParams<{ user_id: int }>();  // Get the user_id from the URL params 
 
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
