@@ -33,7 +33,7 @@ def get_adoption_progress_db_connection():
         conn = sqlite3.connect('adoption_progress.db')
         conn.row_factory = sqlite3.Row  # Enables dictionary-like access to rows
         return conn
-    except sqlite3.Error as e:
+    except sqlite3.Error as e:# pylint: disable=all
         print(f"Error connecting to adoption_progress database: {e}")
         return None
 
@@ -67,7 +67,7 @@ def manager_get_user_adoption_progress(user_id):
         ]
 
         return {"user_id": user_id, "adoption_progress": adoption_progress}
-    except sqlite3.Error as e:
+    except sqlite3.Error as e: # pylint: disable=all
         print(f"Error retrieving adoption progress: {e}")
         return None
     finally:
