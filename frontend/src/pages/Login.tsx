@@ -53,8 +53,7 @@ const Login: React.FC = () => {
         overflow: 'hidden', // Prevent scrollbars
       }}
     >
-      {/* Black box in the top-left corner */}
-      <div
+      <div // left black box
         style={{
           position: 'absolute',
           top: '0',
@@ -65,6 +64,20 @@ const Login: React.FC = () => {
           borderRadius: '20px'
         }}
       ></div>
+      
+      <div // right black box
+        style={{
+          position: 'absolute',
+          top: '0',
+          right: '0',
+          width: '200px', // Width of the black box
+          height: '90px', // Height of the black box
+          backgroundColor: '#151414', // Black background
+          borderRadius: '20px'
+        }}
+      >
+        
+      </div>
       
       <form
         onSubmit={handleSubmit}
