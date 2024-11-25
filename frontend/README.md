@@ -25,11 +25,11 @@ git clone git@github.uconn.edu:CSE2102-Fall24/cse2102-fall-Team21.git
 
 2. Build the Docker image:
 
-   docker build -t backendTeam21 .
+   docker build -t backendteam21 .
 
 3. Run the Docker container:
 
-   docker run -d -p 5000:5000 backendTeam21
+   docker run -d -p 5000:5000 backendteam21
 
 *Note* This will start the backend server on port 5000.
 
@@ -47,8 +47,8 @@ git clone git@github.uconn.edu:CSE2102-Fall24/cse2102-fall-Team21.git
 
 3. Build the Docker image
 
-   docker build -t frontendTeam21 .
+   docker build -t frontendteam21 .
 
 4. Run the Docker container
 
-   docker run -d -p 5173:80 frontendTeam21
+   docker run -d -p 5173:80 frontendteam21
