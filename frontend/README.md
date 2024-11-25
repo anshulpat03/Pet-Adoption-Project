@@ -39,10 +39,16 @@ git clone git@github.uconn.edu:CSE2102-Fall24/cse2102-fall-Team21.git
 
    cd ../frontend
 
-2. Build the Docker image
+2. Download packages
+
+   npm install react-router-dom
+
+   npm install typescript --save-dev
+
+3. Build the Docker image
 
    docker build -t frontendTeam21 .
 
-3. Run the Docker container
+4. Run the Docker container
 
    docker run -d -p 5173:80 frontendTeam21
