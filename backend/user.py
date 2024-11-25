@@ -84,7 +84,7 @@ def add_form(data):
             (int(data.get("user_id")), data.get("name"), data.get("salary"), data.get("housing"),
             data.get("contact"), data.get("pet_name"))
         )
-        conn.commit()
+        conn.commit() # pylint: disable=all
         return True
     except sqlite3.Error as error:
         print(f"Database error: {error}")

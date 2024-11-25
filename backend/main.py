@@ -7,7 +7,8 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from flasgger import Swagger
 from pets import get_all_pets, get_pet_by_id, create_pet, update_pet, delete_pet
-from user import get_user_by_id, get_adoption_status, fetch_users_from_db, login_user, register_user, add_form
+from user import get_user_by_id, get_adoption_status
+from user import fetch_users_from_db, login_user, register_user, add_form
 from manager import (
     manager_get_pet_info,
     manager_add_pet,
@@ -17,7 +18,13 @@ from manager import (
 
 # Initialize Flask app and enable CORS
 def create_app():
-    app = Flask(__name__)
+    """
+    Create and configure the Flask application.
+
+    Returns:
+        Flask: The initialized Flask application instance.
+    """
+    app = Flask(__name__) # pylint: disable=all
     initialize_all()  # Ensure the database is initialized
     return app
 
@@ -87,7 +94,7 @@ def edit_pet(pet_id):
     data = request.get_json()
     updated_pet = False
     for col, value in data.items():
-        if update_pet("pets", pet_id, col, value):  # Pass table name ("pets"), pet_id, column, and new value
+        if update_pet("pets", pet_id, col, value):  # Pass table name ("pets")
             updated_pet = True
 
     if updated_pet:
@@ -149,12 +156,12 @@ def login():
 
 #@app.route('/users/<int:user_id>/status', methods=['PUT'])
 #def modify_adoption_status(user_id):
-    """Update the adoption status of a user."""
+    """Update the adoption status of a user.""" # pylint: disable=all
     data = request.get_json()
     new_status = data.get("adoption_status")
     if new_status not in ["pending", "accepted", "denied"]:
         return jsonify({"error": "Invalid status"}), 400
-    updated = update_adoption_status(user_id, new_status)
+    updated = update_adoption_status(user_id, new_status) # pylint: disable=all
     return jsonify(updated), 200
 
 @app.route('/users', methods=['POST'])

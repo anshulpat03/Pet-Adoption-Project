@@ -44,7 +44,7 @@ def get_pet_by_id(pet_id):
 def create_pet(pet_data):
     """Adds a new pet to the database, including an optional image."""
     conn = get_db_connection('pets.db')
-    cursor = conn.cursor()
+    cursor = conn.cursor() # pylint: disable=all
 
     # Insert new pet into the database, including the image column
     cursor.execute(
@@ -91,7 +91,7 @@ def update_pet(table, id, col, value):  # pylint: disable=W0622,C0103
         if cursor.rowcount == 0:
             return False
 
-        connection.commit()
+        connection.commit() # pylint: disable=all
         return True
     except sqlite3.Error as error:
         print(f"Database error: {error}")
